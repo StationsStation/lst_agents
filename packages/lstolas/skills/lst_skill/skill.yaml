@@ -1,0 +1,31 @@
+name: lst_skill
+author: lstolas
+version: 0.1.0
+type: skill
+description: Simple skill to act as a dummy for the lstolas contracts
+license: Apache-2.0
+aea_version: '>=1.0.0, <2.0.0'
+fingerprint:
+  __init__.py: bafybeigyxcx4wncpcllv53uculwp655byh7mmqjgntsgalql7ppicripyy
+  behaviours.py: bafybeibwbbzo76yqcj3fh5bgfkjki2oxnalw2r26a3hdberdivrl5orffa
+  my_model.py: bafybeiaskwo3p5sxlulphfjph64mzcjtslwxudtf5zz2rjc74ngx6wjt44
+  tests/test_skill.py: bafybeibbmgrhzg6v5mlktb6ds2wwi46xx3edfm6x6t7vpryxonzimhpcem
+fingerprint_ignore_patterns: []
+connections: []
+contracts: []
+protocols: []
+skills: []
+behaviours:
+  scaffold:
+    args:
+      foo: bar
+    class_name: MyScaffoldBehaviour
+handlers: {}
+models:
+  scaffold:
+    args:
+      foo: bar
+    class_name: MyModel
+dependencies: {}
+is_abstract: false
+customs: []

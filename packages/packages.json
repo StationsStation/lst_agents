@@ -1,4 +1,9 @@
 {
-    "dev": {},
-    "third_party": {}
+    "dev": {
+        "skill/lstolas/lst_skill/0.1.0": "bafybeignmx2j72jxqhc7slaeqgsyxmqzlddvgq3ruf4xwq7wjc2nh5lfnq",
+        "agent/lstolas/lst_agent/0.1.0": "bafybeieihan262xy6lhy6kgcbo6hyj2a4cif2ilrvrxslk34tddtbdmoce"
+    },
+    "third_party": {
+        "protocol/open_aea/signing/1.0.0": "bafybeig2d36zxy65vd7fwhs7scotuktydcarm74aprmrb5nioiymr3yixm"
+    }
 }

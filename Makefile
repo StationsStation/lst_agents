@@ -73,8 +73,16 @@ install:
 	poetry run autonomy packages sync
 	@echo "Packages synced."
 
- sync:
+sync:
 	git pull
 	poetry run autonomy packages sync
+
+
+metadata:
+	adev metadata generate . skill/lstolas/lst_skill/0.1.0 01
+	adev -v metadata validate mints/01.json
+
+	adev metadata generate . agent/lstolas/lst_agent/0.1.0 02
+	adev -v metadata validate mints/02.json
 
 all: fmt lint test hashes

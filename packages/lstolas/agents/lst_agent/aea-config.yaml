@@ -1,0 +1,28 @@
+agent_name: lst_agent
+author: lstolas
+version: 0.1.0
+license: Apache-2.0
+description: Simple agent to act as a dummy for the lstolas contracts
+aea_version: '>=1.65.0, <2.0.0'
+fingerprint:
+  tests/test_agent.py: bafybeica37jnspsesrbajaszu7qfxcgy2kamo7cpwaxqmkczc7tdviwadu
+fingerprint_ignore_patterns: []
+connections: []
+contracts: []
+protocols:
+- open_aea/signing:1.0.0:bafybeig2d36zxy65vd7fwhs7scotuktydcarm74aprmrb5nioiymr3yixm
+skills:
+- lstolas/lst_skill:0.1.0:bafybeignmx2j72jxqhc7slaeqgsyxmqzlddvgq3ruf4xwq7wjc2nh5lfnq
+customs: []
+default_ledger: ethereum
+required_ledgers:
+- ethereum
+default_routing: {}
+connection_private_key_paths: {}
+private_key_paths: {}
+logging_config:
+  disable_existing_loggers: false
+  version: 1
+dependencies:
+  open-aea-ledger-ethereum: {}
+default_connection: null
