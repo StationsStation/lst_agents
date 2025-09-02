@@ -1,0 +1,46 @@
+graph TD
+  StartRound
+  CheckAnyWorkRound
+  WaitingRound
+  ClaimRewardTokensRound
+  ClaimBridgedTokensRound
+  TriggerL2ToL1BridgeRound
+  CheckpointRound
+  RedeemRound
+  UnHandledErrorRound
+  HandledErrorRound
+  StartRound -->|DONE| CheckAnyWorkRound
+  CheckAnyWorkRound -->|CLAIM_BRIDGED_TOKEN| ClaimBridgedTokensRound
+  CheckAnyWorkRound -->|FINALIZE_BRIDGED_TOKEN| FinalizeBridgedTokensRound
+  CheckAnyWorkRound -->|CALL_REDEEM| RedeemRound
+  CheckAnyWorkRound -->|CLAIM_REWARDS| ClaimRewardTokensRound
+  CheckAnyWorkRound -->|CALL_CHECKPOINTS| CheckpointRound 
+  CheckAnyWorkRound -->|TRIGGER_L2_TO_L1| TriggerL2ToL1BridgeRound
+  CheckAnyWorkRound -->|NO_WORK| WaitingRound
+  
+  ClaimRewardTokensRound -->|DONE| CheckAnyWorkRound
+  FinalizeBridgedTokensRound -->|DONE| CheckAnyWorkRound
+  ClaimBridgedTokensRound -->|DONE| CheckAnyWorkRound
+  TriggerL2ToL1BridgeRound -->|DONE| CheckAnyWorkRound
+  CheckpointRound -->|DONE| CheckAnyWorkRound
+  RedeemRound -->|DONE| CheckAnyWorkRound
+  WaitingRound -->|DONE| CheckAnyWorkRound
+  
+  ClaimRewardTokensRound -->|ERROR| HandledErrorRound
+  FinalizeBridgedTokensRound -->|ERROR| HandledErrorRound
+  ClaimBridgedTokensRound -->|ERROR| HandledErrorRound
+  TriggerL2ToL1BridgeRound -->|ERROR| HandledErrorRound
+  CheckpointRound -->|ERROR| HandledErrorRound
+  RedeemRound -->|ERROR| HandledErrorRound
+  HandledErrorRound -->|DONE| CheckAnyWorkRound
+  
+  ClaimBridgedTokensRound -->|FATAL_ERROR| UnHandledErrorRound
+  FinalizeBridgedTokensRound -->|FATAL_ERROR| UnHandledErrorRound
+  ClaimRewardTokensRound -->|FATAL_ERROR| UnHandledErrorRound
+  TriggerL2ToL1BridgeRound -->|FATAL_ERROR| UnHandledErrorRound
+  CheckpointRound -->|FATAL_ERROR| UnHandledErrorRound
+  RedeemRound -->|FATAL_ERROR| UnHandledErrorRound
+  CheckAnyWorkRound -->|FATAL_ERROR| UnHandledErrorRound
+
+  
+
