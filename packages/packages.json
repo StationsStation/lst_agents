@@ -1,9 +1,16 @@
 {
     "dev": {
-        "skill/lstolas/lst_skill/0.1.0": "bafybeignmx2j72jxqhc7slaeqgsyxmqzlddvgq3ruf4xwq7wjc2nh5lfnq",
-        "agent/lstolas/lst_agent/0.1.0": "bafybeieihan262xy6lhy6kgcbo6hyj2a4cif2ilrvrxslk34tddtbdmoce"
+        "skill/lstolas/lst_skill/0.1.0": "bafybeibggencphisb4ztmas5dshvdtdu2lz3mqvmscn33pqujrvshlkttm",
+        "agent/lstolas/lst_agent/0.1.0": "bafybeidwr5lysltz5nh2nzhupowwbfzs4ivm7grd2mtmai3d2kqgtgcjlu"
     },
     "third_party": {
-        "protocol/open_aea/signing/1.0.0": "bafybeig2d36zxy65vd7fwhs7scotuktydcarm74aprmrb5nioiymr3yixm"
+        "protocol/open_aea/signing/1.0.0": "bafybeig2d36zxy65vd7fwhs7scotuktydcarm74aprmrb5nioiymr3yixm",
+        "protocol/eightballer/default/0.1.0": "bafybeicsdb3bue2xoopc6lue7njtyt22nehrnkevmkuk2i6ac65w722vwy",
+        "protocol/eightballer/http/0.1.0": "bafybeid75xhq7hfdt7sgj7yrn44yj57xrgxscaw34ir46tndfzvodioxme",
+        "protocol/eightballer/prometheus/1.0.0": "bafybeidxo32tu43ru3xlk3kd5b6xlwf6vaytxvvhtjbh7ag52kexos4ke4",
+        "connection/eightballer/http_client/0.1.0": "bafybeiaz5auftwxpt4czrmeeesggqlkc2kosmetq6adrebeu6g7bkhqc2u",
+        "connection/eightballer/http_server/0.1.0": "bafybeidrvllrr23mc6bvjxn6v3hny6oiwhfgi72n2b7w6ck5luousjfbbq",
+        "connection/eightballer/prometheus/0.1.1": "bafybeicy4ck2wvauo2vh6ji64xrzlgezh27powi6ztokr4yujtf3cft6wi",
+        "skill/eightballer/prometheus/0.1.0": "bafybeicl5i7e467aowfarke4bbyixo2dggar276njmvyuwbsby5pxshhtu"
     }
 }
