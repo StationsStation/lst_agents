@@ -2,30 +2,42 @@ name: lst_skill
 author: lstolas
 version: 0.1.0
 type: skill
-description: Simple skill to act as a dummy for the lstolas contracts
+description: A skill that performas all of the necessary operations for the lstOlas
+  project.
 license: Apache-2.0
 aea_version: '>=1.0.0, <2.0.0'
 fingerprint:
-  __init__.py: bafybeigyxcx4wncpcllv53uculwp655byh7mmqjgntsgalql7ppicripyy
-  behaviours.py: bafybeibwbbzo76yqcj3fh5bgfkjki2oxnalw2r26a3hdberdivrl5orffa
-  my_model.py: bafybeiaskwo3p5sxlulphfjph64mzcjtslwxudtf5zz2rjc74ngx6wjt44
-  tests/test_skill.py: bafybeibbmgrhzg6v5mlktb6ds2wwi46xx3edfm6x6t7vpryxonzimhpcem
+  README.md: bafybeiesl5jlvvu4enydib32bpyfqphlkdulxy3oqid3t32cjxya5qykci
+  __init__.py: bafybeib67rw5cwu5y2qeyar7ttesjd3s4tddslju5mc5qwneel4jwuunuq
+  behaviours.py: bafybeibxgg5ho6xc3mnpdqzn5nnbagf4vuzu3dcudfm2nymbobj7jdjzfm
+  dialogues.py: bafybeiggsfafkurldxnvjhqw3l424acxmpgr4x6qs36ociozuobikpqejy
+  handlers.py: bafybeigxyhzux4czjkaqntqmnjcfidchf2h6sitvxx6dknpwmoucbojqgq
+  tests/__init__.py: bafybeigb2ji4vkcap3hokcedggjwsrah7te2nxjhkorwf3ibwgyaa2glma
+  tests/test_metrics.py: bafybeicav3z2lr33icxngxowghr3plep5ifqsmovnnco6maiuow4fqhwau
+  tests/test_metrics_dialogues.py: bafybeih3pdmk4cktahchm6oz62umfggfmgfzntspngqrvwbvo7bhow2tni
 fingerprint_ignore_patterns: []
 connections: []
 contracts: []
-protocols: []
+protocols:
+- eightballer/default:0.1.0:bafybeicsdb3bue2xoopc6lue7njtyt22nehrnkevmkuk2i6ac65w722vwy
+- eightballer/http:0.1.0:bafybeid75xhq7hfdt7sgj7yrn44yj57xrgxscaw34ir46tndfzvodioxme
 skills: []
 behaviours:
-  scaffold:
+  main:
+    args: {}
+    class_name: LstabciappFsmBehaviour
+handlers:
+  metrics_handler:
     args:
-      foo: bar
-    class_name: MyScaffoldBehaviour
-handlers: {}
+      enable_cors: false
+    class_name: HttpHandler
 models:
-  scaffold:
-    args:
-      foo: bar
-    class_name: MyModel
+  default_dialogues:
+    args: {}
+    class_name: DefaultDialogues
+  http_dialogues:
+    args: {}
+    class_name: HttpDialogues
 dependencies: {}
 is_abstract: false
 customs: []

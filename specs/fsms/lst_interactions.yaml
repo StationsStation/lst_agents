@@ -1,0 +1,60 @@
+alphabet_in:
+- TRIGGER_L2_TO_L1
+- CLAIM_REWARDS
+- FATAL_ERROR
+- FINALIZE_BRIDGED_TOKEN
+- DONE
+- CALL_REDEEM
+- CALL_CHECKPOINTS
+- CLAIM_BRIDGED_TOKEN
+- NO_WORK
+- ERROR
+default_start_state: StartRound
+final_states:
+- UnHandledErrorRound
+label: lstAbciApp
+start_states:
+- StartRound
+states:
+- CheckAnyWorkRound
+- StartRound
+- UnHandledErrorRound
+- WaitingRound
+- FinalizeBridgedTokensRound
+- ClaimBridgedTokensRound
+- HandledErrorRound
+- RedeemRound
+- TriggerL2ToL1BridgeRound
+- CheckpointRound
+- ClaimRewardTokensRound
+transition_func:
+  (CheckAnyWorkRound, CALL_CHECKPOINTS): CheckpointRound
+  (CheckAnyWorkRound, CALL_REDEEM): RedeemRound
+  (CheckAnyWorkRound, CLAIM_BRIDGED_TOKEN): ClaimBridgedTokensRound
+  (CheckAnyWorkRound, CLAIM_REWARDS): ClaimRewardTokensRound
+  (CheckAnyWorkRound, FATAL_ERROR): UnHandledErrorRound
+  (CheckAnyWorkRound, FINALIZE_BRIDGED_TOKEN): FinalizeBridgedTokensRound
+  (CheckAnyWorkRound, NO_WORK): WaitingRound
+  (CheckAnyWorkRound, TRIGGER_L2_TO_L1): TriggerL2ToL1BridgeRound
+  (CheckpointRound, DONE): CheckAnyWorkRound
+  (CheckpointRound, ERROR): HandledErrorRound
+  (CheckpointRound, FATAL_ERROR): UnHandledErrorRound
+  (ClaimBridgedTokensRound, DONE): CheckAnyWorkRound
+  (ClaimBridgedTokensRound, ERROR): HandledErrorRound
+  (ClaimBridgedTokensRound, FATAL_ERROR): UnHandledErrorRound
+  (ClaimRewardTokensRound, DONE): CheckAnyWorkRound
+  (ClaimRewardTokensRound, ERROR): HandledErrorRound
+  (ClaimRewardTokensRound, FATAL_ERROR): UnHandledErrorRound
+  (FinalizeBridgedTokensRound, DONE): CheckAnyWorkRound
+  (FinalizeBridgedTokensRound, ERROR): HandledErrorRound
+  (FinalizeBridgedTokensRound, FATAL_ERROR): UnHandledErrorRound
+  (HandledErrorRound, DONE): CheckAnyWorkRound
+  (RedeemRound, DONE): CheckAnyWorkRound
+  (RedeemRound, ERROR): HandledErrorRound
+  (RedeemRound, FATAL_ERROR): UnHandledErrorRound
+  (StartRound, DONE): CheckAnyWorkRound
+  (TriggerL2ToL1BridgeRound, DONE): CheckAnyWorkRound
+  (TriggerL2ToL1BridgeRound, ERROR): HandledErrorRound
+  (TriggerL2ToL1BridgeRound, FATAL_ERROR): UnHandledErrorRound
+  (WaitingRound, DONE): CheckAnyWorkRound
+

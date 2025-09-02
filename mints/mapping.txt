@@ -129,6 +129,6 @@ token_id-"component_id"
 
 # pending-mints
 
-999-skill/lstolas/lst_skill/0.1.0
-?-agent/lstolas/lst_agent/0.1.0
+298-skill/lstolas/lst_skill/0.1.0
+69-agent/lstolas/lst_agent/0.1.0
 
