@@ -1,5 +1,11 @@
 {
     "dev": {
+        "contract/lstolas/lst_collector/0.1.0": "bafybeidohldv57m3jkc33zpgbxukaushmcibmt4ncnsnomd3pvpocxs3ui",
+        "contract/lstolas/lst_activity_module/0.1.0": "bafybeidohldv57m3jkc33zpgbxukaushmcibmt4ncnsnomd3pvpocxs3ui",
+        "contract/lstolas/lst_distributor/0.1.0": "bafybeidohldv57m3jkc33zpgbxukaushmcibmt4ncnsnomd3pvpocxs3ui",
+        "contract/lstolas/lst_unstake_relayer/0.1.0": "bafybeidohldv57m3jkc33zpgbxukaushmcibmt4ncnsnomd3pvpocxs3ui",
+        "contract/lstolas/lst_staking_processor_l2/0.1.0": "bafybeidohldv57m3jkc33zpgbxukaushmcibmt4ncnsnomd3pvpocxs3ui",
+        "contract/lstolas/lst_staking_manager/0.1.0": "bafybeidohldv57m3jkc33zpgbxukaushmcibmt4ncnsnomd3pvpocxs3ui",
         "skill/lstolas/lst_skill/0.1.0": "bafybeibggencphisb4ztmas5dshvdtdu2lz3mqvmscn33pqujrvshlkttm",
         "agent/lstolas/lst_agent/0.1.0": "bafybeidwr5lysltz5nh2nzhupowwbfzs4ivm7grd2mtmai3d2kqgtgcjlu"
     },
