@@ -77,6 +77,9 @@ sync:
 	git pull
 	poetry run autonomy packages sync
 
+contracts:
+	poetry run scripts/generate_contracts.sh
+
 
 metadata:
 	adev metadata generate . skill/lstolas/lst_skill/0.1.0 01
