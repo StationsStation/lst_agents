@@ -6,8 +6,10 @@ description: The scaffold contract scaffolds a contract to be implemented by the
 license: Apache-2.0
 aea_version: '>=1.0.0, <2.0.0'
 fingerprint:
-  __init__.py: bafybeicy5ontehydimdmo43pl2djegt7iebdt2j62ez3bft3fv6hrixczi
-  contract.py: bafybeiagczqki7kuz3lxn5y3karxll5mjli3h4mxu5dug5it5t5vklhxny
+  __init__.py: bafybeihpnu7q76mqvdu5k2mtocg7ynhfpf5lp6tncexrzzcfleozaz6fna
+  build/lst_distributor.json: bafybeid6utdcft3pfohs7hetmhagixup2q5d67kd6p4uqw2xzjobzeuodq
+  contract.py: bafybeierwpu5qocpk5sv6kxtxfhfk5nfy2grr56glcekouufcrel3e3yxm
+  tests/test_lst_distributor.py: bafybeigvlwmg5vqxp3y3hmkztbbhpld7tu5n4h7onv5l73tl5uy2w2y6xu
 fingerprint_ignore_patterns: []
 class_name: LstDistributor
 contract_interface_paths:

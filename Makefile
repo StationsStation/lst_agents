@@ -54,7 +54,7 @@ lint:
 fmt: 
 	poetry run adev -n 0 fmt
 
-test:
+test: clean hashes
 	poetry run adev -v test
 
 install:
