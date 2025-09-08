@@ -7,11 +7,15 @@ from aea.test_tools.test_skill import BaseSkillTestCase
 
 from packages.lstolas.skills.lst_skill import PUBLIC_ID
 from packages.lstolas.skills.lst_skill.models import LstStrategy
-from packages.lstolas.skills.lst_skill.behaviours import CheckAnyWorkRound, LstabciappFsmBehaviour
-from packages.lstolas.skills.lst_skill.behaviours_classes.base_behaviour import LstabciappStates
-from packages.lstolas.skills.lst_skill.behaviours_classes.trigger_l2_to_l1_bridge import TriggerL2ToL1BridgeRound
-from packages.lstolas.skills.lst_skill.behaviours_classes.finalize_bridged_tokens_round import (
+from packages.lstolas.skills.lst_skill.behaviours import (
+    CheckAnyWorkRound,
+    LstabciappFsmBehaviour,
     FinalizeBridgedTokensRound,
+)
+from packages.lstolas.skills.lst_skill.behaviours_classes.base_behaviour import BaseState, LstabciappStates
+from packages.lstolas.skills.lst_skill.behaviours_classes.trigger_l2_to_l1_bridge import TriggerL2ToL1BridgeRound
+from packages.lstolas.skills.lst_skill.behaviours_classes.claim_bridged_tokens_round import (
+    ClaimBridgedTokensRound,
 )
 
 
@@ -52,15 +56,15 @@ class TestFsmBehaviour(BaseSkillTestCase):
         cls.behaviour = cast(LstabciappFsmBehaviour, cls._skill.skill_context.behaviours.main)
         cls.logger = cls._skill.skill_context.logger
 
-    @classmethod
-    def teardown_method(cls):  # pylint: disable=W0221
-        """Teardown the test class."""
-
     def test_setup(self):
         """Test the initialization of the strategy."""
         assert self.behaviour is not None
         assert self.behaviour.context is not None
         self.behaviour.setup()
+
+    @classmethod
+    def teardown_method(cls):  # pylint: disable=W0221
+        """Teardown the test class."""
 
 
 class TestLSTCheckWorkBehaviour(BaseSkillTestCase):
@@ -78,10 +82,6 @@ class TestLSTCheckWorkBehaviour(BaseSkillTestCase):
         )
         cls.logger = cls._skill.skill_context.logger
 
-    @classmethod
-    def teardown_method(cls):  # pylint: disable=W0221
-        """Teardown the test class."""
-
     def test_setup(self):
         """Test the initialization of the strategy."""
         assert self.behaviour is not None
@@ -89,21 +89,16 @@ class TestLSTCheckWorkBehaviour(BaseSkillTestCase):
         self.behaviour.setup()
         assert self.behaviour.conditional_behaviours_to_events
 
+    @classmethod
+    def teardown_method(cls):  # pylint: disable=W0221
+        """Teardown the test class."""
 
-class TestFinaliseBridgedTokens(BaseSkillTestCase):
-    """Test HttpHandler of http_echo."""
+
+class BaseTestConditionalBehaviour(BaseSkillTestCase):
+    """Test the conditional behaviour of the skill."""
 
     path_to_skill = Path(ROOT_DIR, "packages", PUBLIC_ID.author, "skills", PUBLIC_ID.name)
-
-    @classmethod
-    def setup_method(cls):  # pylint: disable=W0221
-        """Setup the test class."""
-        super().setup_class()
-        behaviour_to_test = LstabciappStates.FINALIZEBRIDGEDTOKENSROUND
-        cls.behaviour = cast(
-            FinalizeBridgedTokensRound, cls._skill.skill_context.behaviours.main.get_state(behaviour_to_test.value)
-        )
-        cls.logger = cls._skill.skill_context.logger
+    behaviour: BaseState
 
     @classmethod
     def teardown_method(cls):  # pylint: disable=W0221
@@ -120,10 +115,22 @@ class TestFinaliseBridgedTokens(BaseSkillTestCase):
         self.behaviour.is_triggered()
 
 
-class TestTriggerL2ToL1Bridge(BaseSkillTestCase):
+class TestClaimBridgedTokens(BaseTestConditionalBehaviour):
     """Test HttpHandler of http_echo."""
 
-    path_to_skill = Path(ROOT_DIR, "packages", PUBLIC_ID.author, "skills", PUBLIC_ID.name)
+    @classmethod
+    def setup_method(cls):  # pylint: disable=W0221
+        """Setup the test class."""
+        super().setup_class()
+        behaviour_to_test = LstabciappStates.CLAIMBRIDGEDTOKENSROUND
+        cls.behaviour = cast(
+            ClaimBridgedTokensRound, cls._skill.skill_context.behaviours.main.get_state(behaviour_to_test.value)
+        )
+        cls.logger = cls._skill.skill_context.logger
+
+
+class TestTriggerL2ToL1Bridge(BaseTestConditionalBehaviour):
+    """Test HttpHandler of http_echo."""
 
     @classmethod
     def setup_method(cls):  # pylint: disable=W0221
@@ -135,21 +142,21 @@ class TestTriggerL2ToL1Bridge(BaseSkillTestCase):
         )
         cls.logger = cls._skill.skill_context.logger
 
-    @classmethod
-    def teardown_method(cls):  # pylint: disable=W0221
-        """Teardown the test class."""
-
-    def test_setup(self):
-        """Test the initialization of the strategy."""
-        assert self.behaviour is not None
-        assert self.behaviour.context is not None
-        self.behaviour.setup()
-
-    def test_trigger(self):
-        """Test the initialization of the strategy."""
-        self.behaviour.is_triggered()
-
     def test_act(self):
         """Test the initialization of the strategy."""
         self.behaviour.is_triggered()
         self.behaviour.act()
+
+
+class TestFinalizeBridgedTokens(BaseTestConditionalBehaviour):
+    """Test HttpHandler of http_echo."""
+
+    @classmethod
+    def setup_method(cls):  # pylint: disable=W0221
+        """Setup the test class."""
+        super().setup_class()
+        behaviour_to_test = LstabciappStates.FINALIZEBRIDGEDTOKENSROUND
+        cls.behaviour = cast(
+            FinalizeBridgedTokensRound, cls._skill.skill_context.behaviours.main.get_state(behaviour_to_test.value)
+        )
+        cls.logger = cls._skill.skill_context.logger
