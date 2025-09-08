@@ -9,7 +9,7 @@ aea_version: '>=1.0.0, <2.0.0'
 fingerprint:
   README.md: bafybeiesl5jlvvu4enydib32bpyfqphlkdulxy3oqid3t32cjxya5qykci
   __init__.py: bafybeicrtoayqrmio45gyc3y47ncomo7k6ias22ajljlx7a6jrcuzttbaq
-  behaviours.py: bafybeifuna423olvgy6vmyivo7px6ruavw5bq6wd4bla4n2jdjfefo4uke
+  behaviours.py: bafybeianbwiqbuwubrlob33qyt7kcovcu4epsbf7udoxyjuaul2k3l7zfq
   behaviours_classes/__init__.py: bafybeigfxtbzqrsrmdkw4xiqtryjszmonoa7fe3dkw4c3dmqwj7m7ynt3y
   behaviours_classes/base_behaviour.py: bafybeiansnzpj4evcgafy6voybwzhp6ozkskhxoh5iwnn7hen6c42fanoi
   behaviours_classes/claim_bridged_tokens_round.py: bafybeigettrsnckpskczt5jnbmsletqrgal3x527tid3kdytiuvw63grlm
@@ -18,7 +18,7 @@ fingerprint:
   handlers.py: bafybeigxyhzux4czjkaqntqmnjcfidchf2h6sitvxx6dknpwmoucbojqgq
   models.py: bafybeigkzmdezlpy2lgxr73zcbodew5myncly3p2quflhdpdmyibeak2hu
   tests/__init__.py: bafybeigb2ji4vkcap3hokcedggjwsrah7te2nxjhkorwf3ibwgyaa2glma
-  tests/test_metrics.py: bafybeihuok3m3tnwd26w6y5ts5nhi3gicomm2hqvzg5sh5kvr62ikvf6i4
+  tests/test_metrics.py: bafybeigm76jqe2jnfikofddog53txtnzhbbw7uf4jyvhropfktqzmtk6mi
   transactions.py: bafybeiabdausv77uottcj7csh4u4blnz5nznxtanmbphdaq56gnupgcswu
 fingerprint_ignore_patterns: []
 connections: []

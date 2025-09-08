@@ -12,7 +12,7 @@ from packages.lstolas.skills.lst_skill.behaviours import (
     LstabciappFsmBehaviour,
     FinalizeBridgedTokensRound,
 )
-from packages.lstolas.skills.lst_skill.behaviours_classes.base_behaviour import LstabciappStates
+from packages.lstolas.skills.lst_skill.behaviours_classes.base_behaviour import BaseState, LstabciappStates
 from packages.lstolas.skills.lst_skill.behaviours_classes.trigger_l2_to_l1_bridge import TriggerL2ToL1BridgeRound
 from packages.lstolas.skills.lst_skill.behaviours_classes.claim_bridged_tokens_round import (
     ClaimBridgedTokensRound,
@@ -98,6 +98,7 @@ class BaseTestConditionalBehaviour(BaseSkillTestCase):
     """Test the conditional behaviour of the skill."""
 
     path_to_skill = Path(ROOT_DIR, "packages", PUBLIC_ID.author, "skills", PUBLIC_ID.name)
+    behaviour: BaseState
 
     @classmethod
     def teardown_method(cls):  # pylint: disable=W0221

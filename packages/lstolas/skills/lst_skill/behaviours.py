@@ -21,7 +21,7 @@
 
 import os
 import time
-from typing import Any
+from typing import Any, cast
 
 from aea.skills.behaviours import FSMBehaviour
 
@@ -134,11 +134,14 @@ class FinalizeBridgedTokensRound(BaseState):
 
     def get_token_balance(self, contract_address) -> int:
         """Get the balance of the contract."""
-        return self.strategy.layer_1_olas_contract.balance_of(
-            self.strategy.layer_1_api,
-            self.strategy.layer_1_olas_token_address,
-            contract_address,
-        )["int"]
+        return cast(
+            int,
+            self.strategy.layer_1_olas_contract.balance_of(
+                self.strategy.layer_1_api,
+                self.strategy.layer_1_olas_token_address,
+                contract_address,
+            )["int"],
+        )
 
 
 class ClaimRewardTokensRound(BaseState):
@@ -163,9 +166,9 @@ class CheckAnyWorkRound(BaseState):
     def setup(self) -> None:
         """Setup the conditional behaviours."""
         self.conditional_behaviours_to_events = [
-            (LstabciappStates.FINALIZEBRIDGEDTOKENSROUND, LstabciappEvents.FINALIZE_BRIDGED_TOKEN),
             (LstabciappStates.CLAIMBRIDGEDTOKENSROUND, LstabciappEvents.CLAIM_BRIDGED_TOKEN),
             (LstabciappStates.TRIGGERL2TOL1BRIDGEROUND, LstabciappEvents.TRIGGER_L2_TO_L1),
+            (LstabciappStates.FINALIZEBRIDGEDTOKENSROUND, LstabciappEvents.FINALIZE_BRIDGED_TOKEN),
         ]
 
     def act(self) -> None:
