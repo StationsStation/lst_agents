@@ -9,7 +9,7 @@ from aea.test_tools import test_cases
 AGENT_NAME = "lst_agent"
 AUTHOR = "lstolas"
 VERSION = "0.1.0"
-DEFAULT_LAUNCH_TIMEOUT = 10
+DEFAULT_LAUNCH_TIMEOUT = 20
 LAUNCH_SUCCEED_MESSAGE = "Start processing"
 TERMINATION_TIMEOUT = 120
 

@@ -25,7 +25,7 @@ connections: []
 contracts:
 - lstolas/lst_collector:0.1.0:bafybeid4k36qpva3rbxialkoxoyikdderfidj7sl6zx6nidfakbbebvga4
 - lstolas/lst_unstake_relayer:0.1.0:bafybeicsh2zzjov3cgmuvhm6llhvqngi4vp6na5ixzfxsvq5mtygw5mc3a
-- eightballer/erc_20:0.1.0:bafybeicspveghr46cq32egkga67ehz6rf5gbjxosjqqyzqdmp6fqjgmkpi
+- eightballer/erc_20:0.1.0:bafybeig622mhgil3uq34d4l3r6moxisgvxwxtrosds2x7glx3kg5z4yqzq
 - eightballer/amb_mainnet:0.1.0:bafybeiecfrsrysggmmosj5bhboqkcyrixxtjkdj4fjcjmyu3puwtzu2zmy
 - eightballer/amb_gnosis:0.1.0:bafybeie5gqdocwsq27jt25aaqprz7mvauxrv3eczpbnbewffdjj6eotlmq
 - eightballer/amb_gnosis_helper:0.1.0:bafybeig37p3q4se2it75kt4zvqvrvzk4fqc7eyspspt3txooxxljkurkey

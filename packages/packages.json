@@ -9,9 +9,9 @@
         "contract/eightballer/amb_mainnet/0.1.0": "bafybeiecfrsrysggmmosj5bhboqkcyrixxtjkdj4fjcjmyu3puwtzu2zmy",
         "contract/eightballer/amb_gnosis/0.1.0": "bafybeie5gqdocwsq27jt25aaqprz7mvauxrv3eczpbnbewffdjj6eotlmq",
         "contract/eightballer/amb_gnosis_helper/0.1.0": "bafybeig37p3q4se2it75kt4zvqvrvzk4fqc7eyspspt3txooxxljkurkey",
-        "contract/eightballer/erc_20/0.1.0": "bafybeicspveghr46cq32egkga67ehz6rf5gbjxosjqqyzqdmp6fqjgmkpi",
-        "skill/lstolas/lst_skill/0.1.0": "bafybeibh33fawhc54lj3yw55seqhxbhepi7y4lkwuwuzv7aebh3vwfvhoe",
-        "agent/lstolas/lst_agent/0.1.0": "bafybeifc67bkfsl4ggatqzuj7oclka5lvykywvg7frnznjpkn4x4wltfsa"
+        "contract/eightballer/erc_20/0.1.0": "bafybeig622mhgil3uq34d4l3r6moxisgvxwxtrosds2x7glx3kg5z4yqzq",
+        "skill/lstolas/lst_skill/0.1.0": "bafybeigjq3ydxejs7drqkg4ovuwyf5yqj6tvsh5rbj7tdqfgq6bmijj5z4",
+        "agent/lstolas/lst_agent/0.1.0": "bafybeia4vohq57kbk5jm52gtwip3e3lqsi4yeid6s5ddcojqkkud7kahua"
     },
     "third_party": {
         "protocol/open_aea/signing/1.0.0": "bafybeig2d36zxy65vd7fwhs7scotuktydcarm74aprmrb5nioiymr3yixm",
