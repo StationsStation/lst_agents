@@ -2,7 +2,7 @@
 
 import json
 from abc import ABC
-from enum import Enum
+from enum import Enum, StrEnum
 from typing import Any
 
 from aea.contracts.base import Contract
@@ -11,7 +11,7 @@ from aea.skills.behaviours import State
 from packages.lstolas.skills.lst_skill.models import LstStrategy
 
 
-class LstabciappEvents(Enum):
+class LstabciappEvents(StrEnum):
     """Events for the fsm."""
 
     TRIGGER_L2_TO_L1 = "TRIGGER_L2_TO_L1"
@@ -45,11 +45,11 @@ class LstabciappStates(Enum):
 class BaseState(State, ABC):
     """Base class for states."""
 
-    _state: LstabciappStates = None
+    _state: LstabciappStates
+    _event: LstabciappEvents  # pyright: ignore
 
     def __init__(self, **kwargs: Any) -> None:
         super().__init__(**kwargs)
-        self._event = None
         self._is_done = False  # Initially, the state is not done
 
     def is_done(self) -> bool:
@@ -57,7 +57,7 @@ class BaseState(State, ABC):
         return self._is_done
 
     @property
-    def event(self) -> str | None:
+    def event(self) -> LstabciappEvents:
         """Current event."""
         return self._event
 
@@ -78,7 +78,7 @@ class BaseState(State, ABC):
 
     def load_abi(self, contract: Contract) -> list:
         """Load the ABI of a contract."""
-        abi_path = contract.configuration.directory / contract.configuration.contract_interface_paths["ethereum"]
+        abi_path = contract.configuration.directory / contract.configuration.contract_interface_paths["ethereum"]  # pyright: ignore
         with open(abi_path, encoding="utf-8") as json_file:
             abi = json.load(json_file)
         return abi.get("abi", [])

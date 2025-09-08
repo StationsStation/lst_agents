@@ -19,7 +19,7 @@
 
 """This module contains the implementation of the http echo skill."""
 
-from aea.configurations.base import PublicId
+from aea.configurations.data_types import PublicId
 
 
 PUBLIC_ID = PublicId.from_str("lstolas/lst_skill:0.1.0")

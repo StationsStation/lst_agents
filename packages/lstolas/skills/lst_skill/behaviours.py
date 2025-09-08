@@ -30,6 +30,7 @@ from packages.lstolas.skills.lst_skill.behaviours_classes.base_behaviour import 
     LstabciappEvents,
     LstabciappStates,
 )
+from packages.lstolas.skills.lst_skill.behaviours_classes.trigger_l2_to_l1_bridge import TriggerL2ToL1BridgeRound
 from packages.lstolas.skills.lst_skill.behaviours_classes.finalize_bridged_tokens_round import (
     FinalizeBridgedTokensRound,
 )
@@ -111,18 +112,6 @@ class RedeemRound(BaseState):
         self._event = LstabciappEvents.DONE
 
 
-class TriggerL2ToL1BridgeRound(BaseState):
-    """This class implements the behaviour of the state TriggerL2ToL1BridgeRound."""
-
-    _state = LstabciappStates.TRIGGERL2TOL1BRIDGEROUND
-
-    def act(self) -> None:
-        """Perform the act."""
-        self.log.info("Triggering L2 to L1 bridge...")
-        self._is_done = True
-        self._event = LstabciappEvents.DONE
-
-
 class CheckpointRound(BaseState):
     """This class implements the behaviour of the state CheckpointRound."""
 
@@ -152,12 +141,13 @@ class CheckAnyWorkRound(BaseState):
 
     _state = LstabciappStates.CHECKANYWORKROUND
 
-    conditional_behaviours_to_events: list[tuple[BaseState, LstabciappEvents]] = []
+    conditional_behaviours_to_events: list[tuple[LstabciappStates, LstabciappEvents]] = []
 
     def setup(self) -> None:
         """Setup the conditional behaviours."""
         self.conditional_behaviours_to_events = [
-            (LstabciappStates.FINALIZEBRIDGEDTOKENSROUND, LstabciappEvents.FINALIZE_BRIDGED_TOKEN)
+            (LstabciappStates.FINALIZEBRIDGEDTOKENSROUND, LstabciappEvents.FINALIZE_BRIDGED_TOKEN),
+            (LstabciappStates.TRIGGERL2TOL1BRIDGEROUND, LstabciappEvents.TRIGGER_L2_TO_L1),
         ]
 
     def act(self) -> None:
@@ -170,7 +160,6 @@ class CheckAnyWorkRound(BaseState):
                 self._is_done = True
                 self._event = event
                 return
-        self.log.info("No conditional behaviour triggered, selecting random event.")
         self._is_done = True
         self._event = LstabciappEvents.NO_WORK
 
