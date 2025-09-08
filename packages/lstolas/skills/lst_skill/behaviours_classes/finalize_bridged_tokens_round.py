@@ -1,8 +1,10 @@
 """FinalizeBridgedTokensRound class module."""
 
-from typing import Any, TypedDict
+import time
+from typing import Any, TypedDict, cast
 from collections.abc import Mapping, Sequence
 
+from pydantic import BaseModel
 from eth_typing import HexStr
 from eth_utils.abi import event_abi_to_log_topic
 from web3._utils.events import get_event_data  # noqa: PLC2701
@@ -10,6 +12,7 @@ from aea_ledger_ethereum import HexBytes
 from web3.datastructures import AttributeDict
 from eth_utils.conversions import to_hex
 
+from packages.lstolas.skills.lst_skill.transactions import signed_tx_to_dict, try_send_signed_transaction
 from packages.lstolas.skills.lst_skill.behaviours_classes.base_behaviour import (
     BaseState,
     LstabciappEvents,
@@ -51,35 +54,77 @@ class EventsPayload(AttributeDict):
     events: list[Event] = []
 
 
+class PendingClaim(BaseModel):
+    """Model for a pending claim."""
+
+    data: str
+    signatures: str
+
+
 class FinalizeBridgedTokensRound(BaseState):
     """This class implements the behaviour of the state FinalizeBridgedTokensRound."""
 
     _state = LstabciappStates.FINALIZEBRIDGEDTOKENSROUND
+    pending_claims: list[PendingClaim] = []
 
     def act(self) -> None:
         """Perform the act."""
         self.log.info("Finalizing bridged tokens...")
+
+        while self.pending_claims:
+            claim = self.pending_claims.pop(0)
+            self.log.info("Finalizing claim...")
+            self.log.info(f"Data: {claim.data}")
+            self.log.info(f"Signatures: {claim.signatures}")
+
+            function = self.strategy.amb_mainnet_contract.execute_signatures(
+                self.strategy.layer_1_api,
+                self.strategy.layer_1_amb_home,
+                data=claim.data,
+                signatures=claim.signatures,
+            )
+            raw_tx = self.strategy.build_transaction(
+                self.strategy.layer_1_api,
+                function,
+            )
+            signed_tx = signed_tx_to_dict(self.strategy.crypto.entity.sign_transaction(raw_tx))
+            tx_hash = try_send_signed_transaction(self.strategy.layer_2_api, signed_tx)
+            if tx_hash is None:
+                self.log.error("Transaction failed to be sent...")
+                self._event = LstabciappEvents.FATAL_ERROR
+                self._is_done = True
+                return
+            self.context.logger.info(f"Transaction hash: {tx_hash.hex()}")
+            tx_receipt = self.strategy.layer_1_api.api.eth.wait_for_transaction_receipt(tx_hash, timeout=300)
+            if tx_receipt is None or tx_receipt.get("status") != 1:
+                self._event = LstabciappEvents.FATAL_ERROR
+                self.log.error("Transaction failed...")
+                self._is_done = True
+                return
+
         self._is_done = True
         self._event = LstabciappEvents.DONE
 
     def is_triggered(self) -> bool:
         """Check if the state is triggered."""
         # we check if there are bridged tokens to be finalised here;
+        pending_bridges = {}
 
         events = EventsPayload(
             dictionary=self.strategy.lst_collector_contract.get_tokens_relayed_events(
                 self.strategy.layer_2_api, self.strategy.lst_collector_address, from_block=17590111
             ),
         )
-        l2_to_l1_events = []
+        l2_to_l1_events = {}
         for event in events.events:
-            l2_to_l1_events += self._decode_event_data(event)
+            individual_events = self._decode_event_data(event)
+            for individual_event in individual_events:
+                l2_to_l1_events[individual_event.args.messageId] = individual_event
 
         # we now check if there are any events to be processed
         self.log.info(f"Found {len(l2_to_l1_events)} L2 to L1 events.")
         self.log.info("Checking for any events to be finalized...")
-        finalised_events, pending_events = [], []
-        for decoded_event in l2_to_l1_events:
+        for message_id in l2_to_l1_events:  # noqa: PLC0206
             # check if the event has been processed on the layer 1
             # we search for events on the l1 for the same message id
             l1_events = EventsPayload(
@@ -87,20 +132,33 @@ class FinalizeBridgedTokensRound(BaseState):
                     self.strategy.layer_1_api,
                     self.strategy.layer_1_amb_home,
                     from_block=9123229,
-                    message_id=decoded_event.args.messageId,
+                    message_id=message_id,
                 ),
             )
-            for event in l1_events.events:
-                decoded_l1_event = hexify(event)
-                if decoded_l1_event.args.status:  # pyright: ignore
-                    finalised_events.append(decoded_event)
-                else:
-                    self.log.info(f"Event with message id {decoded_event.args.messageId} is pending.")
-                    pending_events.append(decoded_event)
-        self.log.info(f"Found {len(finalised_events)} finalised events.")
-        self.log.info(f"Found {len(pending_events)} pending events.")
 
-        return len(pending_events) > 0
+            # sleep to avoid silly rate limits
+            time.sleep(2)
+            if not l1_events.events:
+                self.log.info(f"No L1 event found for message id {message_id}. It is pending.")
+                pending_bridges[message_id] = l2_to_l1_events[message_id]
+        self.log.info(f"Found {len(pending_bridges)} pending events.")
+        # we now check if the bridge can be finalized
+        for message_id, event in pending_bridges.items():
+            signature = cast(
+                HexBytes,
+                self.strategy.layer_2_amb_helper_contract.get_signatures(
+                    self.strategy.layer_2_api, self.strategy.layer_2_amb_helper, event.args.encodedData
+                )["str"],
+            ).hex()
+            if signature and len(signature) > 2:
+                self.log.info(f"Bridge can be finalized for message id {message_id}.")
+                self.pending_claims.append(
+                    PendingClaim(
+                        data=event.args.encodedData,
+                        signatures="0x" + signature,
+                    )
+                )
+        return len(self.pending_claims) > 0
 
     def _decode_event_data(self, event: Event) -> list:
         """Decode the events data.

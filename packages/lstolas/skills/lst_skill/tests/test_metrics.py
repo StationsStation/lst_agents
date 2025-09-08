@@ -148,3 +148,8 @@ class TestTriggerL2ToL1Bridge(BaseSkillTestCase):
     def test_trigger(self):
         """Test the initialization of the strategy."""
         self.behaviour.is_triggered()
+
+    def test_act(self):
+        """Test the initialization of the strategy."""
+        self.behaviour.is_triggered()
+        self.behaviour.act()
