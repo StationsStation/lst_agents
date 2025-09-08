@@ -86,6 +86,7 @@ class TestLSTCheckWorkBehaviour(BaseSkillTestCase):
         assert self.behaviour is not None
         assert self.behaviour.context is not None
         self.behaviour.setup()
+        assert self.behaviour.conditional_behaviours_to_events
 
 
 class TestFinaliseBridgedTokens(BaseSkillTestCase):
@@ -112,7 +113,6 @@ class TestFinaliseBridgedTokens(BaseSkillTestCase):
         assert self.behaviour is not None
         assert self.behaviour.context is not None
         self.behaviour.setup()
-        assert self.behaviour.conditional_behaviours_to_events
 
     def test_trigger(self):
         """Test the initialization of the strategy."""
