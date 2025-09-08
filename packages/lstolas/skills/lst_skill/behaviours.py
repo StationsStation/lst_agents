@@ -76,18 +76,6 @@ class WaitingRound(BaseState):
         self._event = LstabciappEvents.DONE
 
 
-class FinalizeBridgedTokensRound(BaseState):
-    """This class implements the behaviour of the state ClaimBridgedTokensRound."""
-
-    _state = LstabciappStates.FINALIZEBRIDGEDTOKENSROUND
-
-    def act(self) -> None:
-        """Perform the act."""
-        self.log.info("Claiming bridged tokens...")
-        self._is_done = True
-        self._event = LstabciappEvents.DONE
-
-
 class HandledErrorRound(BaseState):
     """This class implements the behaviour of the state HandledErrorRound."""
 
@@ -124,6 +112,35 @@ class CheckpointRound(BaseState):
         self._event = LstabciappEvents.DONE
 
 
+class FinalizeBridgedTokensRound(BaseState):
+    """This class implements the behaviour of the state ClaimRewardTokensRound."""
+
+    _state = LstabciappStates.FINALIZEBRIDGEDTOKENSROUND
+    balance_of_unstake_relayer: int
+    balance_of_distributor: int
+
+    def act(self) -> None:
+        """Perform the act."""
+        self.log.info("Distributing reward tokens...")
+        self._is_done = True
+        self._event = LstabciappEvents.DONE
+
+    def is_triggered(self) -> bool:
+        """Check if the condition is met to trigger this behaviour."""
+        self.log.info("Checking if there are bridged tokens to finalize...")
+        self.balance_of_unstake_relayer = self.get_token_balance(self.strategy.lst_unstake_relayer_address)
+        self.balance_of_distributor = self.get_token_balance(self.strategy.lst_distributor_address)
+        return any([self.balance_of_unstake_relayer, self.balance_of_distributor])
+
+    def get_token_balance(self, contract_address) -> int:
+        """Get the balance of the contract."""
+        return self.strategy.layer_1_olas_contract.balance_of(
+            self.strategy.layer_1_api,
+            self.strategy.layer_1_olas_token_address,
+            contract_address,
+        )["int"]
+
+
 class ClaimRewardTokensRound(BaseState):
     """This class implements the behaviour of the state ClaimRewardTokensRound."""
 
@@ -147,6 +164,7 @@ class CheckAnyWorkRound(BaseState):
         """Setup the conditional behaviours."""
         self.conditional_behaviours_to_events = [
             (LstabciappStates.FINALIZEBRIDGEDTOKENSROUND, LstabciappEvents.FINALIZE_BRIDGED_TOKEN),
+            (LstabciappStates.CLAIMBRIDGEDTOKENSROUND, LstabciappEvents.CLAIM_BRIDGED_TOKEN),
             (LstabciappStates.TRIGGERL2TOL1BRIDGEROUND, LstabciappEvents.TRIGGER_L2_TO_L1),
         ]
 
