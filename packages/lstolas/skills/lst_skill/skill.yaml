@@ -12,18 +12,19 @@ fingerprint:
   behaviours.py: bafybeidhd2qgom4vlmpixojf4llxdnxqnmtueonhtbuyh4kgvmtd6ky3aq
   behaviours_classes/__init__.py: bafybeigfxtbzqrsrmdkw4xiqtryjszmonoa7fe3dkw4c3dmqwj7m7ynt3y
   behaviours_classes/base_behaviour.py: bafybeiansnzpj4evcgafy6voybwzhp6ozkskhxoh5iwnn7hen6c42fanoi
-  behaviours_classes/finalize_bridged_tokens_round.py: bafybeihxx63v3ojp4v6ipaevtmnbiubriy7fmytm3kdrqg7u5dcs56oy5u
+  behaviours_classes/claim_bridged_tokens_round.py: bafybeigettrsnckpskczt5jnbmsletqrgal3x527tid3kdytiuvw63grlm
   behaviours_classes/trigger_l2_to_l1_bridge.py: bafybeifdipzjwpmemyvo3saobvdvlkaftkl3iintmzndjjqcuufjkkhiri
   dialogues.py: bafybeiggsfafkurldxnvjhqw3l424acxmpgr4x6qs36ociozuobikpqejy
   handlers.py: bafybeigxyhzux4czjkaqntqmnjcfidchf2h6sitvxx6dknpwmoucbojqgq
-  models.py: bafybeig2c4g3rymzi3g2uctfanwg2waz5ujfu7ar22yumxi4phngxox5ei
+  models.py: bafybeierd3j55tsszayqz3rvadopvbad5mj647lbkhhilrr3d4ejd3oi4y
   tests/__init__.py: bafybeigb2ji4vkcap3hokcedggjwsrah7te2nxjhkorwf3ibwgyaa2glma
-  tests/test_metrics.py: bafybeic3ndjzpkkkc4z5sqeqf5hbggtn6gtx2hlrt6gj3bksio74vkttfa
+  tests/test_metrics.py: bafybeifcpvxbgtlckihpqwovzssfbjyvvnn7buxk3fb5tgljfpvgfj3jny
   transactions.py: bafybeiabdausv77uottcj7csh4u4blnz5nznxtanmbphdaq56gnupgcswu
 fingerprint_ignore_patterns: []
 connections: []
 contracts:
 - lstolas/lst_collector:0.1.0:bafybeid4k36qpva3rbxialkoxoyikdderfidj7sl6zx6nidfakbbebvga4
+- lstolas/lst_unstake_relayer:0.1.0:bafybeicsh2zzjov3cgmuvhm6llhvqngi4vp6na5ixzfxsvq5mtygw5mc3a
 - eightballer/amb_mainnet:0.1.0:bafybeiecfrsrysggmmosj5bhboqkcyrixxtjkdj4fjcjmyu3puwtzu2zmy
 - eightballer/amb_gnosis:0.1.0:bafybeie5gqdocwsq27jt25aaqprz7mvauxrv3eczpbnbewffdjj6eotlmq
 - eightballer/amb_gnosis_helper:0.1.0:bafybeig37p3q4se2it75kt4zvqvrvzk4fqc7eyspspt3txooxxljkurkey
@@ -52,6 +53,7 @@ models:
       layer_1_rpc_endpoint: https://eth-sepolia.api.onfinality.io/public
       layer_2_rpc_endpoint: https://rpc.chiadochain.net
       lst_collector_address: '0x12B35395B8FE15D073948c7563fecB986c344137'
+      lst_unstake_relayer_address: '0xe4E16791359F19e63189052EA3a9Ed2f90DAf173'
       layer_2_amb_home: '0x8448E15d0e706C0298dECA99F0b4744030e59d7d'
       layer_1_amb_home: '0xf2546D6648BD2af6a008A7e7C1542BB240329E11'
       layer_2_amb_helper: '0x3cc500B3c01D04C265c9293cB35BA2Fd8eA6dc1b'

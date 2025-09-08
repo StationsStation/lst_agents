@@ -61,10 +61,10 @@ class PendingClaim(BaseModel):
     signatures: str
 
 
-class FinalizeBridgedTokensRound(BaseState):
+class ClaimBridgedTokensRound(BaseState):
     """This class implements the behaviour of the state FinalizeBridgedTokensRound."""
 
-    _state = LstabciappStates.FINALIZEBRIDGEDTOKENSROUND
+    _state = LstabciappStates.CLAIMBRIDGEDTOKENSROUND
     pending_claims: list[PendingClaim] = []
 
     def act(self) -> None:

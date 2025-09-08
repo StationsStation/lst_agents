@@ -10,8 +10,8 @@ from packages.lstolas.skills.lst_skill.models import LstStrategy
 from packages.lstolas.skills.lst_skill.behaviours import CheckAnyWorkRound, LstabciappFsmBehaviour
 from packages.lstolas.skills.lst_skill.behaviours_classes.base_behaviour import LstabciappStates
 from packages.lstolas.skills.lst_skill.behaviours_classes.trigger_l2_to_l1_bridge import TriggerL2ToL1BridgeRound
-from packages.lstolas.skills.lst_skill.behaviours_classes.finalize_bridged_tokens_round import (
-    FinalizeBridgedTokensRound,
+from packages.lstolas.skills.lst_skill.behaviours_classes.claim_bridged_tokens_round import (
+    ClaimBridgedTokensRound,
 )
 
 
@@ -90,7 +90,7 @@ class TestLSTCheckWorkBehaviour(BaseSkillTestCase):
         assert self.behaviour.conditional_behaviours_to_events
 
 
-class TestFinaliseBridgedTokens(BaseSkillTestCase):
+class TestClaimBridgedTokens(BaseSkillTestCase):
     """Test HttpHandler of http_echo."""
 
     path_to_skill = Path(ROOT_DIR, "packages", PUBLIC_ID.author, "skills", PUBLIC_ID.name)
@@ -99,9 +99,9 @@ class TestFinaliseBridgedTokens(BaseSkillTestCase):
     def setup_method(cls):  # pylint: disable=W0221
         """Setup the test class."""
         super().setup_class()
-        behaviour_to_test = LstabciappStates.FINALIZEBRIDGEDTOKENSROUND
+        behaviour_to_test = LstabciappStates.CLAIMBRIDGEDTOKENSROUND
         cls.behaviour = cast(
-            FinalizeBridgedTokensRound, cls._skill.skill_context.behaviours.main.get_state(behaviour_to_test.value)
+            ClaimBridgedTokensRound, cls._skill.skill_context.behaviours.main.get_state(behaviour_to_test.value)
         )
         cls.logger = cls._skill.skill_context.logger
 

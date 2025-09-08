@@ -31,8 +31,8 @@ from packages.lstolas.skills.lst_skill.behaviours_classes.base_behaviour import 
     LstabciappStates,
 )
 from packages.lstolas.skills.lst_skill.behaviours_classes.trigger_l2_to_l1_bridge import TriggerL2ToL1BridgeRound
-from packages.lstolas.skills.lst_skill.behaviours_classes.finalize_bridged_tokens_round import (
-    FinalizeBridgedTokensRound,
+from packages.lstolas.skills.lst_skill.behaviours_classes.claim_bridged_tokens_round import (
+    ClaimBridgedTokensRound,
 )
 
 
@@ -76,10 +76,10 @@ class WaitingRound(BaseState):
         self._event = LstabciappEvents.DONE
 
 
-class ClaimBridgedTokensRound(BaseState):
+class FinalizeBridgedTokensRound(BaseState):
     """This class implements the behaviour of the state ClaimBridgedTokensRound."""
 
-    _state = LstabciappStates.CLAIMBRIDGEDTOKENSROUND
+    _state = LstabciappStates.FINALIZEBRIDGEDTOKENSROUND
 
     def act(self) -> None:
         """Perform the act."""
