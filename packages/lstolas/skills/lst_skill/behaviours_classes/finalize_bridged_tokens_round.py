@@ -1,11 +1,14 @@
 """FinalizeBridgedTokensRound class module."""
 
+from typing import Any, TypedDict
 from collections.abc import Mapping, Sequence
 
-from eth_utils import to_hex
-from web3._utils.events import get_event_data, event_abi_to_log_topic  # noqa: PLC2701
+from eth_typing import HexStr
+from eth_utils.abi import event_abi_to_log_topic
+from web3._utils.events import get_event_data  # noqa: PLC2701
 from aea_ledger_ethereum import HexBytes
 from web3.datastructures import AttributeDict
+from eth_utils.conversions import to_hex
 
 from packages.lstolas.skills.lst_skill.behaviours_classes.base_behaviour import (
     BaseState,
@@ -29,6 +32,25 @@ def hexify(obj):
     return obj
 
 
+class Event(TypedDict):
+    """TypedDict for an Ethereum event."""
+
+    args: dict[str, Any]
+    event: str
+    logIndex: int
+    transactionIndex: int
+    transactionHash: HexBytes | HexStr
+    address: str
+    blockHash: str | bytes
+    blockNumber: int
+
+
+class EventsPayload(AttributeDict):
+    """TypedDict for a payload containing a list of events."""
+
+    events: list[Event] = []
+
+
 class FinalizeBridgedTokensRound(BaseState):
     """This class implements the behaviour of the state FinalizeBridgedTokensRound."""
 
@@ -44,11 +66,13 @@ class FinalizeBridgedTokensRound(BaseState):
         """Check if the state is triggered."""
         # we check if there are bridged tokens to be finalised here;
 
-        events = self.strategy.lst_collector_contract.get_tokens_relayed_events(
-            self.strategy.layer_2_api, self.strategy.lst_collector_address, from_block=17590111
+        events = EventsPayload(
+            dictionary=self.strategy.lst_collector_contract.get_tokens_relayed_events(
+                self.strategy.layer_2_api, self.strategy.lst_collector_address, from_block=17590111
+            ),
         )
         l2_to_l1_events = []
-        for event in events["events"]:
+        for event in events.events:
             l2_to_l1_events += self._decode_event_data(event)
 
         # we now check if there are any events to be processed
@@ -58,15 +82,17 @@ class FinalizeBridgedTokensRound(BaseState):
         for decoded_event in l2_to_l1_events:
             # check if the event has been processed on the layer 1
             # we search for events on the l1 for the same message id
-            l1_events = self.strategy.amb_mainnet_contract.get_relayed_message_events(
-                self.strategy.layer_1_api,
-                self.strategy.layer_1_amb_home,
-                from_block=9123229,
-                message_id=decoded_event.args.messageId,
+            l1_events = EventsPayload(
+                dictionary=self.strategy.amb_mainnet_contract.get_relayed_message_events(
+                    self.strategy.layer_1_api,
+                    self.strategy.layer_1_amb_home,
+                    from_block=9123229,
+                    message_id=decoded_event.args.messageId,
+                ),
             )
-            for event in l1_events["events"]:
+            for event in l1_events.events:
                 decoded_l1_event = hexify(event)
-                if decoded_l1_event.args.status:
+                if decoded_l1_event.args.status:  # pyright: ignore
                     finalised_events.append(decoded_event)
                 else:
                     self.log.info(f"Event with message id {decoded_event.args.messageId} is pending.")
@@ -76,7 +102,7 @@ class FinalizeBridgedTokensRound(BaseState):
 
         return len(pending_events) > 0
 
-    def _decode_event_data(self, event: list) -> list:
+    def _decode_event_data(self, event: Event) -> list:
         """Decode the events data.
         1. get the transaction receipt.
         2. get the message hash from the event.
@@ -85,11 +111,11 @@ class FinalizeBridgedTokensRound(BaseState):
         receipt = self.strategy.layer_2_api.api.eth.get_transaction_receipt(event["transactionHash"])
         amb_abi = self.load_abi(self.strategy.layer_2_amb_home_contract)
         event_abis = [a for a in amb_abi if a.get("type") == "event"]
-        topic_to_eventabi = {to_hex(event_abi_to_log_topic(e)): e for e in event_abis}
+        topic_to_eventabi = {to_hex(event_abi_to_log_topic(e)): e for e in event_abis}  # pyright: ignore
         raw_logs = [log for log in receipt["logs"] if log["address"].lower() == self.strategy.layer_2_amb_home.lower()]
         decoded_events = []
         for raw_log in raw_logs:
-            event_abi = topic_to_eventabi[raw_log["topics"][0].hex()]
+            event_abi = topic_to_eventabi[raw_log["topics"][0].hex()]  # pyright: ignore
             decoded = get_event_data(self.strategy.layer_2_api.api.codec, event_abi, raw_log)
             decoded_events.append(hexify(decoded))
         return decoded_events

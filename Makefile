@@ -88,4 +88,7 @@ metadata:
 	adev metadata generate . agent/lstolas/lst_agent/0.1.0 02
 	adev -v metadata validate mints/02.json
 
-all: fmt lint test hashes
+typecheck:
+	poetry run pyright packages/lstolas/skills/lst_skill/
+
+all: fmt lint typecheck test hashes

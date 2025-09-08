@@ -8,16 +8,17 @@ license: Apache-2.0
 aea_version: '>=1.0.0, <2.0.0'
 fingerprint:
   README.md: bafybeiesl5jlvvu4enydib32bpyfqphlkdulxy3oqid3t32cjxya5qykci
-  __init__.py: bafybeib67rw5cwu5y2qeyar7ttesjd3s4tddslju5mc5qwneel4jwuunuq
-  behaviours.py: bafybeieghfqwczhpzo2smq7kfbqkea6nwg7p2uxzytrmza3llgsm5swpoi
+  __init__.py: bafybeicrtoayqrmio45gyc3y47ncomo7k6ias22ajljlx7a6jrcuzttbaq
+  behaviours.py: bafybeibdflq64cwqwrevxrjjs7fsqmsq2whsju55cepxc7cgx5iouqvp5m
   behaviours_classes/__init__.py: bafybeigfxtbzqrsrmdkw4xiqtryjszmonoa7fe3dkw4c3dmqwj7m7ynt3y
-  behaviours_classes/base_behaviour.py: bafybeicimjf7v5fzyrbdjma5qi2otgphw4cifytykt3pijsixvlnynbice
-  behaviours_classes/finalize_bridged_tokens_round.py: bafybeiatcdvqayhfhofyibkosfrluqxksvnlzpa37vqvfbuqjmu47jt2jy
+  behaviours_classes/base_behaviour.py: bafybeiansnzpj4evcgafy6voybwzhp6ozkskhxoh5iwnn7hen6c42fanoi
+  behaviours_classes/finalize_bridged_tokens_round.py: bafybeihxqiqikg57dfulyx5t26k4bathq2bdpk6kkscvi7q2veylk4gyrm
+  behaviours_classes/trigger_l2_to_l1_bridge.py: bafybeib4oqrpd7du65lye7e4ukxsuu226phsql6mdlx2tmm7j242xbyi3m
   dialogues.py: bafybeiggsfafkurldxnvjhqw3l424acxmpgr4x6qs36ociozuobikpqejy
   handlers.py: bafybeigxyhzux4czjkaqntqmnjcfidchf2h6sitvxx6dknpwmoucbojqgq
-  models.py: bafybeidev26cqgjhig3bhjmv73icxb2ffq73c63zkecmwx5iu2plp6yaim
+  models.py: bafybeihalqsjhcj4cpulskxag62wzj472fieowr5tz7srwi4li5wt66vfy
   tests/__init__.py: bafybeigb2ji4vkcap3hokcedggjwsrah7te2nxjhkorwf3ibwgyaa2glma
-  tests/test_metrics.py: bafybeicog77q3ghnld763wbswqtvk3feltu7yrxatqz6vn34qf2fe3loti
+  tests/test_metrics.py: bafybeid7rgnsfetcsozr2qfgws2qhxhw264puhyfjarjplcjbmmkxq4jzu
 fingerprint_ignore_patterns: []
 connections: []
 contracts:
