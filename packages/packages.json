@@ -1,6 +1,6 @@
 {
     "dev": {
-        "contract/lstolas/lst_collector/0.1.0": "bafybeib7ayvizk6ip2axcnb4mpw2fxru6liac3uguqttgjanawzzmvis4m",
+        "contract/lstolas/lst_collector/0.1.0": "bafybeid4k36qpva3rbxialkoxoyikdderfidj7sl6zx6nidfakbbebvga4",
         "contract/lstolas/lst_activity_module/0.1.0": "bafybeidvkc3nxfgywjhzp7oqyyighy2smstirs2eubg6tk6lhe334izcri",
         "contract/lstolas/lst_distributor/0.1.0": "bafybeidjdpm5igddhydmjrpjsatcoshwajpfraxszegk4ujdg6sp2txcxm",
         "contract/lstolas/lst_unstake_relayer/0.1.0": "bafybeicsh2zzjov3cgmuvhm6llhvqngi4vp6na5ixzfxsvq5mtygw5mc3a",
@@ -8,8 +8,9 @@
         "contract/lstolas/lst_staking_manager/0.1.0": "bafybeif7utuuw562bxj7miugvouno4pwq4naivnk52m4ueiili44772dbi",
         "contract/eightballer/amb_mainnet/0.1.0": "bafybeiecfrsrysggmmosj5bhboqkcyrixxtjkdj4fjcjmyu3puwtzu2zmy",
         "contract/eightballer/amb_gnosis/0.1.0": "bafybeie5gqdocwsq27jt25aaqprz7mvauxrv3eczpbnbewffdjj6eotlmq",
-        "skill/lstolas/lst_skill/0.1.0": "bafybeigkigwoxi2a5tkjrglny463yncbykvweskxbrntxgzjdypd2wnpw4",
-        "agent/lstolas/lst_agent/0.1.0": "bafybeicb6btwrp5o3o3dhthyl6h2xwhrlryrdotbv3auerau5ostc77lpi"
+        "contract/eightballer/amb_gnosis_helper/0.1.0": "bafybeig37p3q4se2it75kt4zvqvrvzk4fqc7eyspspt3txooxxljkurkey",
+        "skill/lstolas/lst_skill/0.1.0": "bafybeifiytefahsfx22m2xxkxxrwoqzpnkanhe4fr7zaz6bhmm5i7heuki",
+        "agent/lstolas/lst_agent/0.1.0": "bafybeiat7qlkegorzph5bp3o63ptjgv3jygj7mmk5f7hq7ghkbbewt5lje"
     },
     "third_party": {
         "protocol/open_aea/signing/1.0.0": "bafybeig2d36zxy65vd7fwhs7scotuktydcarm74aprmrb5nioiymr3yixm",

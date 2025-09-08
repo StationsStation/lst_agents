@@ -3,7 +3,7 @@
 import subprocess
 from pathlib import Path
 
-from aea.test_tools.test_cases import AEATestCaseMany
+from aea.test_tools import test_cases
 
 
 AGENT_NAME = "lst_agent"
@@ -11,9 +11,10 @@ AUTHOR = "lstolas"
 VERSION = "0.1.0"
 DEFAULT_LAUNCH_TIMEOUT = 10
 LAUNCH_SUCCEED_MESSAGE = "Start processing"
+TERMINATION_TIMEOUT = 120
 
 
-class TestAgentLaunch(AEATestCaseMany):
+class TestAgentLaunch(test_cases.AEATestCaseMany):
     """Test that the Agent launches."""
 
     IS_LOCAL = True
@@ -38,3 +39,14 @@ class TestAgentLaunch(AEATestCaseMany):
         """Check if the AEA is launched and running (ready to process messages)."""
         missing_strings = cls.missing_from_output(process, (LAUNCH_SUCCEED_MESSAGE,), timeout, is_terminating=False)
         return missing_strings == []
+
+    @classmethod
+    def terminate_agents(
+        cls,
+        *subprocesses: subprocess.Popen,
+        timeout: int = TERMINATION_TIMEOUT,
+    ) -> None:
+        """Terminate agent subprocesses.
+        Run from agent's directory.
+        """
+        super().terminate_agents(*subprocesses, timeout=timeout)

@@ -72,7 +72,7 @@ class LstCollector(Contract):
         """Handler method for the 'map_operation_receiver_balances' requests."""
         instance = cls.get_instance(ledger_api, contract_address)
         result = instance.functions.mapOperationReceiverBalances(var_0).call()
-        return {"balance": result, "receiver": result}
+        return {"balance": result[0], "receiver": result[1]}
 
     @classmethod
     def olas(

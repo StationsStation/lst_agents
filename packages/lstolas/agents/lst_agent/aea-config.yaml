@@ -6,7 +6,7 @@ description: ''
 aea_version: '>=1.55.0, <2.0.0'
 fingerprint:
   tests/__init__.py: bafybeibk76alseqt3ufreyev7rnz5zuk6dcftt7c2ob54gmhpt6xrhkg2y
-  tests/test_agent.py: bafybeic2ej57xdrby75b4deornqthxqsmom23tnozk2nuuopyk2mi46mka
+  tests/test_agent.py: bafybeicw5vvekrmegpmzueup4vmcavifoj4txcf6ji5noaygsrko5l7qne
 fingerprint_ignore_patterns: []
 connections:
 - eightballer/http_client:0.1.0:bafybeiaz5auftwxpt4czrmeeesggqlkc2kosmetq6adrebeu6g7bkhqc2u
@@ -20,7 +20,7 @@ protocols:
 - open_aea/signing:1.0.0:bafybeig2d36zxy65vd7fwhs7scotuktydcarm74aprmrb5nioiymr3yixm
 skills:
 - eightballer/prometheus:0.1.0:bafybeicl5i7e467aowfarke4bbyixo2dggar276njmvyuwbsby5pxshhtu
-- lstolas/lst_skill:0.1.0:bafybeigkigwoxi2a5tkjrglny463yncbykvweskxbrntxgzjdypd2wnpw4
+- lstolas/lst_skill:0.1.0:bafybeifiytefahsfx22m2xxkxxrwoqzpnkanhe4fr7zaz6bhmm5i7heuki
 customs: []
 default_ledger: ethereum
 required_ledgers:
@@ -55,6 +55,7 @@ dependencies:
   open-aea-ledger-ethereum: {}
   rich: {}
 default_connection: null
+period: 1.0
 ---
 public_id: eightballer/http_server:0.1.0:bafybeicp3ubkonolxjgnwgqmaz624qduwzzz74fbjizu77lyvnpo77uv7u
 type: connection
