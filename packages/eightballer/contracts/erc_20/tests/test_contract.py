@@ -30,7 +30,7 @@ from aea.contracts.base import Contract, contract_registry
 from aea_ledger_ethereum import EthereumApi, EthereumCrypto
 from aea.configurations.loader import ComponentType, ContractConfig, load_component_configuration
 
-from ..contract import Erc20Token
+from packages.eightballer.contracts.erc_20.contract import Erc20Token
 
 
 PACKAGE_DIR = Path(__file__).parent.parent

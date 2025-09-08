@@ -1,3 +1,1 @@
-"""
-Test for erc20
-"""
+"""Test for erc20."""
