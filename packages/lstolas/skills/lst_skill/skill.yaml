@@ -9,15 +9,21 @@ aea_version: '>=1.0.0, <2.0.0'
 fingerprint:
   README.md: bafybeiesl5jlvvu4enydib32bpyfqphlkdulxy3oqid3t32cjxya5qykci
   __init__.py: bafybeib67rw5cwu5y2qeyar7ttesjd3s4tddslju5mc5qwneel4jwuunuq
-  behaviours.py: bafybeibxgg5ho6xc3mnpdqzn5nnbagf4vuzu3dcudfm2nymbobj7jdjzfm
+  behaviours.py: bafybeieghfqwczhpzo2smq7kfbqkea6nwg7p2uxzytrmza3llgsm5swpoi
+  behaviours_classes/__init__.py: bafybeigfxtbzqrsrmdkw4xiqtryjszmonoa7fe3dkw4c3dmqwj7m7ynt3y
+  behaviours_classes/base_behaviour.py: bafybeicimjf7v5fzyrbdjma5qi2otgphw4cifytykt3pijsixvlnynbice
+  behaviours_classes/finalize_bridged_tokens_round.py: bafybeiatcdvqayhfhofyibkosfrluqxksvnlzpa37vqvfbuqjmu47jt2jy
   dialogues.py: bafybeiggsfafkurldxnvjhqw3l424acxmpgr4x6qs36ociozuobikpqejy
   handlers.py: bafybeigxyhzux4czjkaqntqmnjcfidchf2h6sitvxx6dknpwmoucbojqgq
+  models.py: bafybeidev26cqgjhig3bhjmv73icxb2ffq73c63zkecmwx5iu2plp6yaim
   tests/__init__.py: bafybeigb2ji4vkcap3hokcedggjwsrah7te2nxjhkorwf3ibwgyaa2glma
-  tests/test_metrics.py: bafybeicav3z2lr33icxngxowghr3plep5ifqsmovnnco6maiuow4fqhwau
-  tests/test_metrics_dialogues.py: bafybeih3pdmk4cktahchm6oz62umfggfmgfzntspngqrvwbvo7bhow2tni
+  tests/test_metrics.py: bafybeiduj2ecxr255ew2nzahuxjy4tbhhr5fde7tdvrpr3jrrkja5nhdty
 fingerprint_ignore_patterns: []
 connections: []
-contracts: []
+contracts:
+- lstolas/lst_collector:0.1.0:bafybeib7ayvizk6ip2axcnb4mpw2fxru6liac3uguqttgjanawzzmvis4m
+- eightballer/amb_mainnet:0.1.0:bafybeiecfrsrysggmmosj5bhboqkcyrixxtjkdj4fjcjmyu3puwtzu2zmy
+- eightballer/amb_gnosis:0.1.0:bafybeie5gqdocwsq27jt25aaqprz7mvauxrv3eczpbnbewffdjj6eotlmq
 protocols:
 - eightballer/default:0.1.0:bafybeicsdb3bue2xoopc6lue7njtyt22nehrnkevmkuk2i6ac65w722vwy
 - eightballer/http:0.1.0:bafybeid75xhq7hfdt7sgj7yrn44yj57xrgxscaw34ir46tndfzvodioxme
@@ -38,6 +44,14 @@ models:
   http_dialogues:
     args: {}
     class_name: HttpDialogues
+  lst_strategy:
+    args:
+      layer_1_rpc_endpoint: https://ethereum-sepolia.therpc.io
+      layer_2_rpc_endpoint: https://rpc.chiadochain.net
+      lst_collector_address: '0x12B35395B8FE15D073948c7563fecB986c344137'
+      layer_2_amb_home: '0x8448E15d0e706C0298dECA99F0b4744030e59d7d'
+      layer_1_amb_home: '0xf2546D6648BD2af6a008A7e7C1542BB240329E11'
+    class_name: LstStrategy
 dependencies: {}
 is_abstract: false
 customs: []

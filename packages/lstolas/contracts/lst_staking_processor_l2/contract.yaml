@@ -6,8 +6,10 @@ description: The scaffold contract scaffolds a contract to be implemented by the
 license: Apache-2.0
 aea_version: '>=1.0.0, <2.0.0'
 fingerprint:
-  __init__.py: bafybeicy5ontehydimdmo43pl2djegt7iebdt2j62ez3bft3fv6hrixczi
-  contract.py: bafybeiagczqki7kuz3lxn5y3karxll5mjli3h4mxu5dug5it5t5vklhxny
+  __init__.py: bafybeibgapbmjuxf26oygk4t3ixjg54sy22qsyq3vteockverfpug5xbpa
+  build/lst_staking_processor_l2.json: bafybeidcxnv7zq7h37z7thc7p2ahoadrzy34ex6lxywiz5hvgkjgubga7a
+  contract.py: bafybeie5zh2k7s5c5u4fcnxcw2srf6l44yvmxmraoeylckynycy3gmf5ay
+  tests/test_lst_staking_processor_l2.py: bafybeig76yjwslj4gwzzrb5qinam5ajh5oh44mpigmwt5aoku5kygq65ni
 fingerprint_ignore_patterns: []
 class_name: LstStakingProcessorL2
 contract_interface_paths:
