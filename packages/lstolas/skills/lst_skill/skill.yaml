@@ -9,11 +9,12 @@ aea_version: '>=1.0.0, <2.0.0'
 fingerprint:
   README.md: bafybeiesl5jlvvu4enydib32bpyfqphlkdulxy3oqid3t32cjxya5qykci
   __init__.py: bafybeicrtoayqrmio45gyc3y47ncomo7k6ias22ajljlx7a6jrcuzttbaq
-  behaviours.py: bafybeie5ibgv6qy6uzppccijzmzicrcshtkbw37uzkwgk2f6mt5hm555mm
+  behaviours.py: bafybeifnopopmqkl5a5tn6wonw6dfkd2jssrwadjhx4i4lsok5h64jutue
   behaviours_classes/__init__.py: bafybeigfxtbzqrsrmdkw4xiqtryjszmonoa7fe3dkw4c3dmqwj7m7ynt3y
   behaviours_classes/base_behaviour.py: bafybeiansnzpj4evcgafy6voybwzhp6ozkskhxoh5iwnn7hen6c42fanoi
   behaviours_classes/check_any_work_round.py: bafybeifrypuvrx7e2m6kftno4jpsiixqrgarzelicw3dut4jfdbxqpopxm
   behaviours_classes/claim_bridged_tokens_round.py: bafybeigettrsnckpskczt5jnbmsletqrgal3x527tid3kdytiuvw63grlm
+  behaviours_classes/error_rounds.py: bafybeia7v2c77y4k24dcwp2rmdoir3tbkw2wkuuxj5ksxpj6rxnz33hbh4
   behaviours_classes/finalize_bridged_tokens_round.py: bafybeif3gyqnfgkzobrp6vojndjkoa7lape3xzcm5jughyhz4hymh53lje
   behaviours_classes/trigger_l2_to_l1_bridge.py: bafybeifdipzjwpmemyvo3saobvdvlkaftkl3iintmzndjjqcuufjkkhiri
   dialogues.py: bafybeiggsfafkurldxnvjhqw3l424acxmpgr4x6qs36ociozuobikpqejy

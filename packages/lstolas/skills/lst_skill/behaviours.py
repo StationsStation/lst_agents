@@ -25,12 +25,13 @@ from typing import Any
 
 from aea.skills.behaviours import FSMBehaviour
 
-from lst_agent.vendor.lstolas.skills.lst_skill.behaviours import CheckAnyWorkRound
+from packages.lstolas.skills.lst_skill.behaviours_classes.error_rounds import HandledErrorRound, UnHandledErrorRound
 from packages.lstolas.skills.lst_skill.behaviours_classes.base_behaviour import (
     BaseState,
     LstabciappEvents,
     LstabciappStates,
 )
+from packages.lstolas.skills.lst_skill.behaviours_classes.check_any_work_round import CheckAnyWorkRound
 from packages.lstolas.skills.lst_skill.behaviours_classes.trigger_l2_to_l1_bridge import TriggerL2ToL1BridgeRound
 from packages.lstolas.skills.lst_skill.behaviours_classes.claim_bridged_tokens_round import (
     ClaimBridgedTokensRound,
@@ -55,18 +56,6 @@ class StartRound(BaseState):
         self._event = LstabciappEvents.DONE
 
 
-class UnHandledErrorRound(BaseState):
-    """This class implements the behaviour of the state UnHandledErrorRound."""
-
-    _state = LstabciappStates.UNHANDLEDERRORROUND
-
-    def act(self) -> None:
-        """Perform the act."""
-        self.log.info("Handling unhandled error...")
-        self._is_done = True
-        self._event = LstabciappEvents.DONE
-
-
 class WaitingRound(BaseState):
     """This class implements the behaviour of the state WaitingRound."""
 
@@ -76,18 +65,6 @@ class WaitingRound(BaseState):
         """Perform the act."""
         self.log.info("No work to be done. Waiting...")
         time.sleep(10)  # wait for 10 seconds before checking again
-        self._is_done = True
-        self._event = LstabciappEvents.DONE
-
-
-class HandledErrorRound(BaseState):
-    """This class implements the behaviour of the state HandledErrorRound."""
-
-    _state = LstabciappStates.HANDLEDERRORROUND
-
-    def act(self) -> None:
-        """Perform the act."""
-        self.log.info("Handling error...")
         self._is_done = True
         self._event = LstabciappEvents.DONE
 
