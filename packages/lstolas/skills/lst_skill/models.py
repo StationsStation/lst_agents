@@ -3,6 +3,7 @@
 from typing import Any, cast
 from pathlib import Path
 from functools import cached_property
+from collections.abc import Callable
 
 from aea.skills.base import Model
 from aea.contracts.base import Contract, contract_registry
@@ -15,12 +16,15 @@ from packages.eightballer.contracts.erc_20 import PUBLIC_ID as ERC20_PUBLIC_ID
 from packages.lstolas.contracts.lst_collector import PUBLIC_ID as LST_COLLECTOR_PUBLIC_ID
 from packages.eightballer.contracts.amb_gnosis import PUBLIC_ID as AMB_LAYER_2_PUBLIC_ID
 from packages.eightballer.contracts.amb_mainnet import PUBLIC_ID as AMB_MAINNET_PUBLIC_ID
+from packages.lstolas.contracts.lst_distributor import PUBLIC_ID as LST_DISTRIBUTOR_PUBLIC_ID
 from packages.eightballer.contracts.erc_20.contract import Erc20
 from packages.lstolas.contracts.lst_unstake_relayer import PUBLIC_ID as LST_UNSTAKE_RELAYER_PUBLIC_ID
+from packages.lstolas.skills.lst_skill.transactions import signed_tx_to_dict, try_send_signed_transaction
 from packages.eightballer.contracts.amb_gnosis_helper import PUBLIC_ID as AMB_GNOSIS_HELPER_PUBLIC_ID
 from packages.lstolas.contracts.lst_collector.contract import LstCollector
 from packages.eightballer.contracts.amb_gnosis.contract import AmbGnosis as AmbLayer2
 from packages.eightballer.contracts.amb_mainnet.contract import AmbMainnet
+from packages.lstolas.contracts.lst_distributor.contract import LstDistributor
 from packages.lstolas.contracts.lst_unstake_relayer.contract import LstUnstakeRelayer
 from packages.eightballer.contracts.amb_gnosis_helper.contract import AmbGnosisHelper
 
@@ -28,6 +32,7 @@ from packages.eightballer.contracts.amb_gnosis_helper.contract import AmbGnosisH
 ROOT = Path(__file__).parent.parent.parent.parent
 
 GAS_PREMIUM = 1.2  # multiplier to add to the gas price
+TX_MINING_TIMEOUT = 300  # seconds
 
 
 def load_contract(contract_path: Path) -> Contract:
@@ -116,24 +121,17 @@ class LstStrategy(Model):
         )
 
     @cached_property
+    def lst_distributor_contract(self) -> LstDistributor:
+        """Get the LST Distributor contract."""
+        return cast(
+            LstDistributor,
+            load_contract(ROOT / LST_DISTRIBUTOR_PUBLIC_ID.author / "contracts" / LST_DISTRIBUTOR_PUBLIC_ID.name),
+        )
+
+    @cached_property
     def layer_1_olas_contract(self) -> Erc20:
         """Get the OLAS token contract."""
         return cast(Erc20, load_contract(ROOT / ERC20_PUBLIC_ID.author / "contracts" / ERC20_PUBLIC_ID.name))
-
-    def build_transaction(self, ledger: EthereumApi, func: Any, value: int = 0):
-        """Build the transaction."""
-
-        nonce = ledger._try_get_transaction_count(self.sender_address)  # noqa: SLF001
-
-        return func.build_transaction(
-            {
-                "from": self.crypto.address,
-                "nonce": nonce,
-                "gas": func.estimate_gas({"from": self.crypto.address, "value": value}),
-                "gasPrice": int(ledger.api.eth.gas_price * GAS_PREMIUM),
-                "value": value,
-            }
-        )
 
     @cached_property
     def crypto(self) -> EthereumCrypto:
@@ -144,3 +142,60 @@ class LstStrategy(Model):
     def sender_address(self) -> Address:
         """Get the sender address."""
         return cast(Address, self.crypto.address)
+
+
+class TransactionSettler(Model):
+    """Transaction Settler for building transactions."""
+
+    def build_transaction(self, ledger: EthereumApi, func: Any, value: int = 0):
+        """Build the transaction."""
+
+        nonce = ledger._try_get_transaction_count(self.strategy.sender_address)  # noqa: SLF001
+
+        return func.build_transaction(
+            {
+                "from": self.strategy.sender_address,
+                "nonce": nonce,
+                "gas": func.estimate_gas({"from": self.strategy.sender_address, "value": value}),
+                "gasPrice": int(ledger.api.eth.gas_price * GAS_PREMIUM),
+                "value": value,
+            }
+        )
+
+    def build_and_settle_transaction(
+        self, contract_address: Address, function: Callable, ledger_api: EthereumApi, **kwargs
+    ):
+        """Build and settle a transaction."""
+        self.log.info(f"Building transaction for contract at address: {contract_address}")
+        w3_function = function(
+            ledger_api,
+            contract_address,
+            **kwargs,
+        )
+        raw_tx = self.build_transaction(
+            ledger_api,
+            w3_function,
+        )
+        self.log.info("Signing and sending transaction...")
+        signed_tx = signed_tx_to_dict(self.strategy.crypto.entity.sign_transaction(raw_tx))
+        tx_hash = try_send_signed_transaction(ledger_api, signed_tx)
+        if tx_hash is None:
+            self.log.error("Transaction failed to be sent...")
+            return False
+        self.context.logger.info(f"Transaction hash: {tx_hash.hex()}")
+        tx_receipt = ledger_api.api.eth.wait_for_transaction_receipt(tx_hash, timeout=TX_MINING_TIMEOUT)
+        if tx_receipt is None or tx_receipt.get("status") != 1:
+            self.log.error("Transaction failed...")
+            return False
+        self.log.info("Transaction successful!")
+        return True
+
+    @property
+    def strategy(self) -> LstStrategy:
+        """Get the strategy."""
+        return cast(LstStrategy, self.context.lst_strategy)
+
+    @property
+    def log(self):
+        """Get the logger."""
+        return self.context.logger

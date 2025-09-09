@@ -12,7 +12,6 @@ from aea_ledger_ethereum import HexBytes
 from web3.datastructures import AttributeDict
 from eth_utils.conversions import to_hex
 
-from packages.lstolas.skills.lst_skill.transactions import signed_tx_to_dict, try_send_signed_transaction
 from packages.lstolas.skills.lst_skill.behaviours_classes.base_behaviour import (
     BaseState,
     LstabciappEvents,
@@ -76,34 +75,20 @@ class ClaimBridgedTokensRound(BaseState):
             self.log.info("Finalizing claim...")
             self.log.info(f"Data: {claim.data}")
             self.log.info(f"Signatures: {claim.signatures}")
-
-            function = self.strategy.amb_mainnet_contract.execute_signatures(
-                self.strategy.layer_1_api,
-                self.strategy.layer_1_amb_home,
+            is_done = self.tx_settler.build_and_settle_transaction(
+                contract_address=self.strategy.layer_1_amb_home,
+                function=self.strategy.amb_mainnet_contract.execute_signatures,
+                ledger_api=self.strategy.layer_1_api,
                 data=claim.data,
                 signatures=claim.signatures,
             )
-            raw_tx = self.strategy.build_transaction(
-                self.strategy.layer_1_api,
-                function,
-            )
-            signed_tx = signed_tx_to_dict(self.strategy.crypto.entity.sign_transaction(raw_tx))
-            tx_hash = try_send_signed_transaction(self.strategy.layer_2_api, signed_tx)
-            if tx_hash is None:
+
+            if not is_done:
                 self.log.error("Transaction failed to be sent...")
                 self._event = LstabciappEvents.FATAL_ERROR
-                self._is_done = True
-                return
-            self.context.logger.info(f"Transaction hash: {tx_hash.hex()}")
-            tx_receipt = self.strategy.layer_1_api.api.eth.wait_for_transaction_receipt(tx_hash, timeout=300)
-            if tx_receipt is None or tx_receipt.get("status") != 1:
-                self._event = LstabciappEvents.FATAL_ERROR
-                self.log.error("Transaction failed...")
-                self._is_done = True
-                return
-
+                break
+            self._event = LstabciappEvents.DONE
         self._is_done = True
-        self._event = LstabciappEvents.DONE
 
     def is_triggered(self) -> bool:
         """Check if the state is triggered."""

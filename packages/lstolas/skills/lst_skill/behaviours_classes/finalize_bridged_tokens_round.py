@@ -19,6 +19,20 @@ class FinalizeBridgedTokensRound(BaseState):
     def act(self) -> None:
         """Perform the act."""
         self.log.info("Distributing reward tokens...")
+        if self.balance_of_unstake_relayer:
+            self.log.info("Finalizing bridged tokens for unstake relayer contract...")
+            self.tx_settler.build_and_settle_transaction(
+                contract_address=self.strategy.lst_unstake_relayer_address,
+                function=self.strategy.lst_unstake_relayer_contract.relay,
+                ledger_api=self.strategy.layer_1_api,
+            )
+        if self.balance_of_distributor:
+            self.log.info("Finalizing bridged tokens for distributor contract...")
+            self.tx_settler.build_and_settle_transaction(
+                contract_address=self.strategy.lst_distributor_address,
+                function=self.strategy.lst_distributor_contract.distribute,
+                ledger_api=self.strategy.layer_1_api,
+            )
         self._is_done = True
         self._event = LstabciappEvents.DONE
 

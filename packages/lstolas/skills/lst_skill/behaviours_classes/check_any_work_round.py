@@ -17,9 +17,9 @@ class CheckAnyWorkRound(BaseState):
     def setup(self) -> None:
         """Setup the conditional behaviours."""
         self.conditional_behaviours_to_events = [
+            (LstabciappStates.FINALIZEBRIDGEDTOKENSROUND, LstabciappEvents.FINALIZE_BRIDGED_TOKEN),
             (LstabciappStates.CLAIMBRIDGEDTOKENSROUND, LstabciappEvents.CLAIM_BRIDGED_TOKEN),
             (LstabciappStates.TRIGGERL2TOL1BRIDGEROUND, LstabciappEvents.TRIGGER_L2_TO_L1),
-            (LstabciappStates.FINALIZEBRIDGEDTOKENSROUND, LstabciappEvents.FINALIZE_BRIDGED_TOKEN),
         ]
 
     def act(self) -> None:
