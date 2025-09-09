@@ -9,9 +9,10 @@ aea_version: '>=1.0.0, <2.0.0'
 fingerprint:
   README.md: bafybeiesl5jlvvu4enydib32bpyfqphlkdulxy3oqid3t32cjxya5qykci
   __init__.py: bafybeicrtoayqrmio45gyc3y47ncomo7k6ias22ajljlx7a6jrcuzttbaq
-  behaviours.py: bafybeianbwiqbuwubrlob33qyt7kcovcu4epsbf7udoxyjuaul2k3l7zfq
+  behaviours.py: bafybeidgbv7av3b6rwmkkpx4daemmcejirxe4hqrhdhzlefbgxxltwxluu
   behaviours_classes/__init__.py: bafybeigfxtbzqrsrmdkw4xiqtryjszmonoa7fe3dkw4c3dmqwj7m7ynt3y
   behaviours_classes/base_behaviour.py: bafybeiansnzpj4evcgafy6voybwzhp6ozkskhxoh5iwnn7hen6c42fanoi
+  behaviours_classes/check_any_work_round.py: bafybeifrypuvrx7e2m6kftno4jpsiixqrgarzelicw3dut4jfdbxqpopxm
   behaviours_classes/claim_bridged_tokens_round.py: bafybeigettrsnckpskczt5jnbmsletqrgal3x527tid3kdytiuvw63grlm
   behaviours_classes/trigger_l2_to_l1_bridge.py: bafybeifdipzjwpmemyvo3saobvdvlkaftkl3iintmzndjjqcuufjkkhiri
   dialogues.py: bafybeiggsfafkurldxnvjhqw3l424acxmpgr4x6qs36ociozuobikpqejy
