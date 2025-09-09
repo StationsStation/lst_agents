@@ -18,6 +18,7 @@ from packages.eightballer.contracts.amb_gnosis import PUBLIC_ID as AMB_LAYER_2_P
 from packages.eightballer.contracts.amb_mainnet import PUBLIC_ID as AMB_MAINNET_PUBLIC_ID
 from packages.lstolas.contracts.lst_distributor import PUBLIC_ID as LST_DISTRIBUTOR_PUBLIC_ID
 from packages.eightballer.contracts.erc_20.contract import Erc20
+from packages.lstolas.contracts.lst_staking_manager import PUBLIC_ID as LST_STAKING_MANAGER_PUBLIC_ID
 from packages.lstolas.contracts.lst_unstake_relayer import PUBLIC_ID as LST_UNSTAKE_RELAYER_PUBLIC_ID
 from packages.lstolas.skills.lst_skill.transactions import signed_tx_to_dict, try_send_signed_transaction
 from packages.eightballer.contracts.amb_gnosis_helper import PUBLIC_ID as AMB_GNOSIS_HELPER_PUBLIC_ID
@@ -25,6 +26,7 @@ from packages.lstolas.contracts.lst_collector.contract import LstCollector
 from packages.eightballer.contracts.amb_gnosis.contract import AmbGnosis as AmbLayer2
 from packages.eightballer.contracts.amb_mainnet.contract import AmbMainnet
 from packages.lstolas.contracts.lst_distributor.contract import LstDistributor
+from packages.lstolas.contracts.lst_staking_manager.contract import LstStakingManager
 from packages.lstolas.contracts.lst_unstake_relayer.contract import LstUnstakeRelayer
 from packages.eightballer.contracts.amb_gnosis_helper.contract import AmbGnosisHelper
 
@@ -71,6 +73,7 @@ class LstStrategy(Model):
         self.lst_collector_address = kwargs.pop("lst_collector_address")
         self.lst_unstake_relayer_address = kwargs.pop("lst_unstake_relayer_address")
         self.lst_distributor_address = kwargs.pop("lst_distributor_address")
+        self.lst_staking_manager_address = kwargs.pop("lst_staking_manager_address")
 
         self.layer_2_amb_home = kwargs.pop("layer_2_amb_home")
         self.layer_1_amb_home = kwargs.pop("layer_1_amb_home")
@@ -126,6 +129,16 @@ class LstStrategy(Model):
         return cast(
             LstDistributor,
             load_contract(ROOT / LST_DISTRIBUTOR_PUBLIC_ID.author / "contracts" / LST_DISTRIBUTOR_PUBLIC_ID.name),
+        )
+
+    @cached_property
+    def lst_staking_manager_contract(self) -> LstStakingManager:
+        """Get the LST Staking Manager contract."""
+        return cast(
+            LstStakingManager,
+            load_contract(
+                ROOT / LST_STAKING_MANAGER_PUBLIC_ID.author / "contracts" / LST_STAKING_MANAGER_PUBLIC_ID.name
+            ),
         )
 
     @cached_property

@@ -1,56 +1,21 @@
 """FinalizeBridgedTokensRound class module."""
 
 import time
-from typing import Any, TypedDict, cast
-from collections.abc import Mapping, Sequence
+from typing import cast
 
 from pydantic import BaseModel
-from eth_typing import HexStr
 from eth_utils.abi import event_abi_to_log_topic
+from web3.exceptions import ContractLogicError
 from web3._utils.events import get_event_data  # noqa: PLC2701
 from aea_ledger_ethereum import HexBytes
-from web3.datastructures import AttributeDict
 from eth_utils.conversions import to_hex
 
+from packages.lstolas.skills.lst_skill.events_processing import Event, EventsPayload, hexify
 from packages.lstolas.skills.lst_skill.behaviours_classes.base_behaviour import (
     BaseState,
     LstabciappEvents,
     LstabciappStates,
 )
-
-
-def hexify(obj):
-    """Convert bytes in the given object to hex strings."""
-    if isinstance(obj, bytes | bytearray | HexBytes):
-        return to_hex(obj)  # always 0x-prefixed
-    if isinstance(obj, AttributeDict):
-        return AttributeDict({k: hexify(v) for k, v in obj.items()})
-    if isinstance(obj, Mapping):
-        return {k: hexify(v) for k, v in obj.items()}
-    if isinstance(obj, tuple):
-        return tuple(hexify(v) for v in obj)
-    if isinstance(obj, Sequence) and not isinstance(obj, str | bytes | bytearray):
-        return [hexify(v) for v in obj]
-    return obj
-
-
-class Event(TypedDict):
-    """TypedDict for an Ethereum event."""
-
-    args: dict[str, Any]
-    event: str
-    logIndex: int
-    transactionIndex: int
-    transactionHash: HexBytes | HexStr
-    address: str
-    blockHash: str | bytes
-    blockNumber: int
-
-
-class EventsPayload(AttributeDict):
-    """TypedDict for a payload containing a list of events."""
-
-    events: list[Event] = []
 
 
 class PendingClaim(BaseModel):
@@ -68,7 +33,7 @@ class ClaimBridgedTokensRound(BaseState):
 
     def act(self) -> None:
         """Perform the act."""
-        self.log.info("Finalizing bridged tokens...")
+        self.log.info("Claiming bridged tokens...")
 
         while self.pending_claims:
             claim = self.pending_claims.pop(0)
@@ -129,20 +94,24 @@ class ClaimBridgedTokensRound(BaseState):
         self.log.info(f"Found {len(pending_bridges)} pending events.")
         # we now check if the bridge can be finalized
         for message_id, event in pending_bridges.items():
-            signature = cast(
-                HexBytes,
-                self.strategy.layer_2_amb_helper_contract.get_signatures(
-                    self.strategy.layer_2_api, self.strategy.layer_2_amb_helper, event.args.encodedData
-                )["str"],
-            ).hex()
-            if signature and len(signature) > 2:
-                self.log.info(f"Bridge can be finalized for message id {message_id}.")
-                self.pending_claims.append(
-                    PendingClaim(
-                        data=event.args.encodedData,
-                        signatures="0x" + signature,
+            try:
+                signature = cast(
+                    HexBytes,
+                    self.strategy.layer_2_amb_helper_contract.get_signatures(
+                        self.strategy.layer_2_api, self.strategy.layer_2_amb_helper, event.args.encodedData
+                    )["str"],
+                ).hex()
+                if signature and len(signature) > 2:
+                    self.log.info(f"Bridge can be finalized for message id {message_id}.")
+                    self.pending_claims.append(
+                        PendingClaim(
+                            data=event.args.encodedData,
+                            signatures="0x" + signature,
+                        )
                     )
-                )
+            except ContractLogicError as e:
+                self.log.exception(f"Error while fetching signatures: {e}")
+                continue
         return len(self.pending_claims) > 0
 
     def _decode_event_data(self, event: Event) -> list:

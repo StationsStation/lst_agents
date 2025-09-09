@@ -14,19 +14,20 @@ fingerprint:
   behaviours_classes/base_behaviour.py: bafybeiav3h4gklc4ellrvubdgkvjfiqz6gtxmu53kis7ahyvjoxn7a4fj4
   behaviours_classes/check_any_work_round.py: bafybeigwoagqlijy4y73st2hcurnlb7a7weslgm3mruz5b3aovfsueekr4
   behaviours_classes/checkpoint_round.py: bafybeiankgnny5k2ctvfyo4sj2nkvucylortibswdyfl6rjbk7cjtkqx3m
-  behaviours_classes/claim_bridged_tokens_round.py: bafybeibu3e2a4rdbxrbes4nzhwxcib66bjatfex3odej6gqoh3t55xmdmy
-  behaviours_classes/claim_reward_tokens_round.py: bafybeidy5ihkvsfupflotsbvaqmblc7sz4l43jwek4dv6hk5fofqwubyye
+  behaviours_classes/claim_bridged_tokens_round.py: bafybeib2hgyrtpxq24nxcviaucpjniu2i5vlonayy2avsed5n6bhnnug6e
+  behaviours_classes/claim_reward_tokens_round.py: bafybeia6d7v7xpiqagsv4bgi4golkiohghe3lfz2yegb4asu5lxxht3msa
   behaviours_classes/error_rounds.py: bafybeia7v2c77y4k24dcwp2rmdoir3tbkw2wkuuxj5ksxpj6rxnz33hbh4
   behaviours_classes/finalize_bridged_tokens_round.py: bafybeiar3vdc63iinewbfg3jbhifecr3t22qthdchkt33hdisp23gmdknq
   behaviours_classes/starting_round.py: bafybeift5drjrtwcbssumcpfm2eczus6z6si4gppokvymhbqkfsajmhun4
   behaviours_classes/trigger_l2_to_l1_bridge.py: bafybeic33jaghe6bzfjw2pjnh46azpyffyzak44pz3jddcfqfhjihuxine
   behaviours_classes/waiting_round.py: bafybeiekbnjih5txvpxi75itpjfv7nr65bf7kbgd2f4tdvanbjsewdp2ma
   dialogues.py: bafybeiggsfafkurldxnvjhqw3l424acxmpgr4x6qs36ociozuobikpqejy
+  events_processing.py: bafybeidpvquahzijvafpbv64wmgtkhdshfkj6t76raskamf5gwia6qlhcy
   handlers.py: bafybeigxyhzux4czjkaqntqmnjcfidchf2h6sitvxx6dknpwmoucbojqgq
-  models.py: bafybeigonvf7toc65paybdsfznbakvio3qyhemkdpqmvte7vnif45untbe
+  models.py: bafybeie3i4z2l5isgqkeeqh7pucldvzlpitter3tabznb3nqpmmyktmbri
   tests/__init__.py: bafybeigb2ji4vkcap3hokcedggjwsrah7te2nxjhkorwf3ibwgyaa2glma
   tests/test_check_work_behaviour.py: bafybeib45mbpf7ctr5aoyltwh34pljwpsh5zqentdqxerfkqx4tqhsg5h4
-  tests/test_conditional_behaviours.py: bafybeiankwi7wt2ypau24l3qxtvo2nnuw4laqqedlgh3phed6xq4zrxaau
+  tests/test_conditional_behaviours.py: bafybeibph732kpxub2eeutnhpyakq3nurdor7kv7xrojhdnajf6e7ihzke
   tests/test_fsm_behaviour.py: bafybeiellmhyw3fupa725t6yirtg3ct25vuttswvyfzwvr5k3l5x3zseby
   tests/test_strategy.py: bafybeihj5doky2avukcisyfgv6e5fzji7tedq7lipl5r5jqyff6efcc5um
   transactions.py: bafybeiabdausv77uottcj7csh4u4blnz5nznxtanmbphdaq56gnupgcswu
@@ -36,6 +37,7 @@ contracts:
 - lstolas/lst_collector:0.1.0:bafybeid4k36qpva3rbxialkoxoyikdderfidj7sl6zx6nidfakbbebvga4
 - lstolas/lst_unstake_relayer:0.1.0:bafybeicsh2zzjov3cgmuvhm6llhvqngi4vp6na5ixzfxsvq5mtygw5mc3a
 - lstolas/lst_distributor:0.1.0:bafybeidjdpm5igddhydmjrpjsatcoshwajpfraxszegk4ujdg6sp2txcxm
+- lstolas/lst_staking_manager:0.1.0:bafybeif7utuuw562bxj7miugvouno4pwq4naivnk52m4ueiili44772dbi
 - eightballer/erc_20:0.1.0:bafybeig622mhgil3uq34d4l3r6moxisgvxwxtrosds2x7glx3kg5z4yqzq
 - eightballer/amb_mainnet:0.1.0:bafybeiecfrsrysggmmosj5bhboqkcyrixxtjkdj4fjcjmyu3puwtzu2zmy
 - eightballer/amb_gnosis:0.1.0:bafybeie5gqdocwsq27jt25aaqprz7mvauxrv3eczpbnbewffdjj6eotlmq
@@ -71,6 +73,7 @@ models:
       lst_collector_address: '0x12B35395B8FE15D073948c7563fecB986c344137'
       lst_unstake_relayer_address: '0xe4E16791359F19e63189052EA3a9Ed2f90DAf173'
       lst_distributor_address: '0xf4Da80254611Ac62413b86A65d36D08DA7630cf5'
+      lst_staking_manager_address: '0x2d7C703aeD2D2d063c51ae23d0DAD202378D03e6'
     class_name: LstStrategy
   tx_settler:
     args: {}

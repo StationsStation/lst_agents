@@ -11,6 +11,7 @@ from packages.lstolas.skills.lst_skill.behaviours import (
 )
 from packages.lstolas.skills.lst_skill.behaviours_classes.base_behaviour import BaseState, LstabciappStates
 from packages.lstolas.skills.lst_skill.behaviours_classes.trigger_l2_to_l1_bridge import TriggerL2ToL1BridgeRound
+from packages.lstolas.skills.lst_skill.behaviours_classes.claim_reward_tokens_round import ClaimRewardTokensRound
 from packages.lstolas.skills.lst_skill.behaviours_classes.claim_bridged_tokens_round import (
     ClaimBridgedTokensRound,
 )
@@ -83,5 +84,19 @@ class TestFinalizeBridgedTokens(BaseTestConditionalBehaviour):
         behaviour_to_test = LstabciappStates.FINALIZEBRIDGEDTOKENSROUND
         cls.behaviour = cast(
             FinalizeBridgedTokensRound, cls._skill.skill_context.behaviours.main.get_state(behaviour_to_test.value)
+        )
+        cls.logger = cls._skill.skill_context.logger
+
+
+class TestClaimRewardTokensRound(BaseTestConditionalBehaviour):
+    """Test HttpHandler of http_echo."""
+
+    @classmethod
+    def setup_method(cls):  # pylint: disable=W0221
+        """Setup the test class."""
+        super().setup_class()
+        behaviour_to_test = LstabciappStates.CLAIMREWARDTOKENSROUND
+        cls.behaviour = cast(
+            ClaimRewardTokensRound, cls._skill.skill_context.behaviours.main.get_state(behaviour_to_test.value)
         )
         cls.logger = cls._skill.skill_context.logger
