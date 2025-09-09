@@ -27,6 +27,23 @@ class ClaimRewardTokensRound(BaseState):
             from_block=17497117,
         )
 
-        EventsPayload(dictionary=raw_events)
+        all_events = EventsPayload(dictionary=raw_events)
+        unique_staking_proxies = set()
+        service_id_to_activity_module = {}
+
+        for event in all_events.events:
+            unique_staking_proxies.add(event.args.stakingProxy)
+            service_id_to_activity_module[event.args.serviceId] = event.args.activityModule
+        for service_id, activity_module in service_id_to_activity_module.items():
+            self.log.info(f"Claiming rewards for service ID {service_id} and activity module {activity_module}...")
+            function = self.strategy.lst_activity_module_contract.claim(
+                ledger_api=self.strategy.layer_2_api,
+                contract_address=activity_module,
+            )
+            try:
+                function.call()
+                self.log.info(f"Successfully claimed rewards for service ID {service_id}.")
+            except Exception as e:
+                self.log.exception(f"Error calling claim function: {e}")
 
         return True
