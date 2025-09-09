@@ -6,7 +6,6 @@ from typing import cast
 from pydantic import BaseModel
 from aea_ledger_ethereum import Address
 
-from packages.lstolas.skills.lst_skill.transactions import signed_tx_to_dict, try_send_signed_transaction
 from packages.lstolas.skills.lst_skill.behaviours_classes.base_behaviour import (
     BaseState,
     LstabciappEvents,
@@ -48,28 +47,14 @@ class TriggerL2ToL1BridgeRound(BaseState):
             return
         self.log.info("Triggering L2 to L1 bridge...")
 
-        # we here try to call the l2 relay operation.
-        # bridge payload.
-        function = self.strategy.lst_collector_contract.relay_tokens(
-            self.strategy.layer_2_api,
-            self.strategy.lst_collector_address,
-            self.current_operation.value,  # type: ignore
-            "0x",
+        is_done = self.tx_settler.build_and_settle_transaction(
+            contract_address=self.strategy.lst_collector_address,
+            function=self.strategy.lst_collector_contract.relay_tokens,
+            ledger_api=self.strategy.layer_2_api,
+            operation=self.current_operation.value,  # type: ignore
+            bridge_payload="0x",
         )
-        raw_tx = self.strategy.build_transaction(
-            self.strategy.layer_2_api,
-            function,
-        )
-        signed_tx = signed_tx_to_dict(self.strategy.crypto.entity.sign_transaction(raw_tx))
-        tx_hash = try_send_signed_transaction(self.strategy.layer_2_api, signed_tx)
-        if tx_hash is None:
-            self.log.error("Transaction failed to be sent...")
-            self._event = LstabciappEvents.FATAL_ERROR
-            self._is_done = True
-            return
-        self.context.logger.info(f"Transaction hash: {tx_hash}")
-        tx_receipt = self.strategy.layer_2_api.api.eth.wait_for_transaction_receipt(tx_hash, timeout=TX_MINING_TIMEOUT)
-        if tx_receipt is None or tx_receipt.get("status") != 1:
+        if not is_done:
             self._event = LstabciappEvents.FATAL_ERROR
         else:
             self._event = LstabciappEvents.DONE
@@ -78,6 +63,7 @@ class TriggerL2ToL1BridgeRound(BaseState):
     def is_triggered(self) -> bool:
         """Check if the state is triggered."""
         # Implement the condition to trigger this state
+        self.current_balance, self.current_operation = None, None
         min_olas_balance = self.get_min_olas_balance()
         if not min_olas_balance:
             self.log.warning("No minimal OLAS balance set, skipping bridge trigger.")

@@ -8,7 +8,7 @@ from typing import Any
 from aea.contracts.base import Contract
 from aea.skills.behaviours import State
 
-from packages.lstolas.skills.lst_skill.models import LstStrategy
+from packages.lstolas.skills.lst_skill.models import LstStrategy, TransactionSettler
 
 
 class LstabciappEvents(StrEnum):
@@ -75,6 +75,11 @@ class BaseState(State, ABC):
     def strategy(self) -> LstStrategy:
         """Get the strategy from the context."""
         return self.context.lst_strategy
+
+    @property
+    def tx_settler(self) -> TransactionSettler:
+        """Get the tx settler from the context."""
+        return self.context.tx_settler
 
     def load_abi(self, contract: Contract) -> list:
         """Load the ABI of a contract."""

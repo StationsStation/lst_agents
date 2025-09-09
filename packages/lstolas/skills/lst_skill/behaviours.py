@@ -21,18 +21,23 @@
 
 import os
 import time
-from typing import Any, cast
+from typing import Any
 
 from aea.skills.behaviours import FSMBehaviour
 
+from packages.lstolas.skills.lst_skill.behaviours_classes.error_rounds import HandledErrorRound, UnHandledErrorRound
 from packages.lstolas.skills.lst_skill.behaviours_classes.base_behaviour import (
     BaseState,
     LstabciappEvents,
     LstabciappStates,
 )
+from packages.lstolas.skills.lst_skill.behaviours_classes.check_any_work_round import CheckAnyWorkRound
 from packages.lstolas.skills.lst_skill.behaviours_classes.trigger_l2_to_l1_bridge import TriggerL2ToL1BridgeRound
 from packages.lstolas.skills.lst_skill.behaviours_classes.claim_bridged_tokens_round import (
     ClaimBridgedTokensRound,
+)
+from packages.lstolas.skills.lst_skill.behaviours_classes.finalize_bridged_tokens_round import (
+    FinalizeBridgedTokensRound,
 )
 
 
@@ -51,18 +56,6 @@ class StartRound(BaseState):
         self._event = LstabciappEvents.DONE
 
 
-class UnHandledErrorRound(BaseState):
-    """This class implements the behaviour of the state UnHandledErrorRound."""
-
-    _state = LstabciappStates.UNHANDLEDERRORROUND
-
-    def act(self) -> None:
-        """Perform the act."""
-        self.log.info("Handling unhandled error...")
-        self._is_done = True
-        self._event = LstabciappEvents.DONE
-
-
 class WaitingRound(BaseState):
     """This class implements the behaviour of the state WaitingRound."""
 
@@ -72,18 +65,6 @@ class WaitingRound(BaseState):
         """Perform the act."""
         self.log.info("No work to be done. Waiting...")
         time.sleep(10)  # wait for 10 seconds before checking again
-        self._is_done = True
-        self._event = LstabciappEvents.DONE
-
-
-class HandledErrorRound(BaseState):
-    """This class implements the behaviour of the state HandledErrorRound."""
-
-    _state = LstabciappStates.HANDLEDERRORROUND
-
-    def act(self) -> None:
-        """Perform the act."""
-        self.log.info("Handling error...")
         self._is_done = True
         self._event = LstabciappEvents.DONE
 
@@ -112,38 +93,6 @@ class CheckpointRound(BaseState):
         self._event = LstabciappEvents.DONE
 
 
-class FinalizeBridgedTokensRound(BaseState):
-    """This class implements the behaviour of the state ClaimRewardTokensRound."""
-
-    _state = LstabciappStates.FINALIZEBRIDGEDTOKENSROUND
-    balance_of_unstake_relayer: int
-    balance_of_distributor: int
-
-    def act(self) -> None:
-        """Perform the act."""
-        self.log.info("Distributing reward tokens...")
-        self._is_done = True
-        self._event = LstabciappEvents.DONE
-
-    def is_triggered(self) -> bool:
-        """Check if the condition is met to trigger this behaviour."""
-        self.log.info("Checking if there are bridged tokens to finalize...")
-        self.balance_of_unstake_relayer = self.get_token_balance(self.strategy.lst_unstake_relayer_address)
-        self.balance_of_distributor = self.get_token_balance(self.strategy.lst_distributor_address)
-        return any([self.balance_of_unstake_relayer, self.balance_of_distributor])
-
-    def get_token_balance(self, contract_address) -> int:
-        """Get the balance of the contract."""
-        return cast(
-            int,
-            self.strategy.layer_1_olas_contract.balance_of(
-                self.strategy.layer_1_api,
-                self.strategy.layer_1_olas_token_address,
-                contract_address,
-            )["int"],
-        )
-
-
 class ClaimRewardTokensRound(BaseState):
     """This class implements the behaviour of the state ClaimRewardTokensRound."""
 
@@ -154,35 +103,6 @@ class ClaimRewardTokensRound(BaseState):
         self.log.info("Claiming reward tokens...")
         self._is_done = True
         self._event = LstabciappEvents.DONE
-
-
-class CheckAnyWorkRound(BaseState):
-    """This class implements the behaviour of the state CheckAnyWorkRound."""
-
-    _state = LstabciappStates.CHECKANYWORKROUND
-
-    conditional_behaviours_to_events: list[tuple[LstabciappStates, LstabciappEvents]] = []
-
-    def setup(self) -> None:
-        """Setup the conditional behaviours."""
-        self.conditional_behaviours_to_events = [
-            (LstabciappStates.CLAIMBRIDGEDTOKENSROUND, LstabciappEvents.CLAIM_BRIDGED_TOKEN),
-            (LstabciappStates.TRIGGERL2TOL1BRIDGEROUND, LstabciappEvents.TRIGGER_L2_TO_L1),
-            (LstabciappStates.FINALIZEBRIDGEDTOKENSROUND, LstabciappEvents.FINALIZE_BRIDGED_TOKEN),
-        ]
-
-    def act(self) -> None:
-        """Perform the act."""
-        self.log.info("Checking for any work to be done...")
-        self._event = LstabciappEvents.NO_WORK
-        for behaviour, event in self.conditional_behaviours_to_events:
-            instance: BaseState = self.context.behaviours.main.get_state(behaviour.value)
-            self.log.info(f"Checking condition for {behaviour}...")
-            if instance.is_triggered():
-                self._event = event
-                self._is_done = True
-                return
-        self._is_done = True
 
 
 class LstabciappFsmBehaviour(FSMBehaviour):
