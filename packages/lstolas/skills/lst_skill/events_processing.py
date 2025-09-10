@@ -1,7 +1,8 @@
 """Processing of Ethereum events."""
+# ruff: noqa: D105, N815
 
-from typing import Any, TypedDict
-from collections.abc import Mapping, Sequence
+from typing import Any, Protocol
+from collections.abc import Mapping, Iterator, Sequence
 
 from eth_typing import HexStr
 from aea_ledger_ethereum import HexBytes
@@ -24,10 +25,21 @@ def hexify(obj):
     return obj
 
 
-class Event(TypedDict):
+class AttrAny(Protocol):
+    """Type for an object supporting both attribute- and mapping-style access."""
+
+    def __getattr__(self, name: str) -> Any: ...
+    def __getitem__(self, key: str) -> Any: ...
+    def get(self, key: str, default: Any = ...) -> Any: ...  # noqa: D102
+    def __iter__(self) -> Iterator[str]: ...
+    def __len__(self) -> int: ...
+    def __contains__(self, key: object) -> bool: ...
+
+
+class Event(AttributeDict):
     """TypedDict for an Ethereum event."""
 
-    args: dict[str, Any]
+    args: AttrAny
     event: str
     logIndex: int
     transactionIndex: int
