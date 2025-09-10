@@ -20,6 +20,8 @@ class CheckAnyWorkRound(BaseState):
             (LstabciappStates.FINALIZEBRIDGEDTOKENSROUND, LstabciappEvents.FINALIZE_BRIDGED_TOKEN),
             (LstabciappStates.CLAIMBRIDGEDTOKENSROUND, LstabciappEvents.CLAIM_BRIDGED_TOKEN),
             (LstabciappStates.TRIGGERL2TOL1BRIDGEROUND, LstabciappEvents.TRIGGER_L2_TO_L1),
+            (LstabciappStates.CLAIMREWARDTOKENSROUND, LstabciappEvents.CLAIM_REWARDS),
+            (LstabciappStates.CHECKPOINTROUND, LstabciappEvents.CALL_CHECKPOINTS),
         ]
 
     def act(self) -> None:

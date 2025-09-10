@@ -49,4 +49,5 @@ class TestAgentLaunch(test_cases.AEATestCaseMany):
         """Terminate agent subprocesses.
         Run from agent's directory.
         """
+        any(p.kill() for p in cls.subprocesses)
         super().terminate_agents(*subprocesses, timeout=timeout)

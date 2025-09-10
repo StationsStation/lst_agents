@@ -10,6 +10,7 @@ function generate_contracts() {
     adev scaffold contract --from-abi "$abi_path" "${contract_author}/${contract_name}"
 }
 
+generate_contracts ../olas-lst/out/StakingTokenLocked.sol/StakingTokenLocked.json lst_staking_token_locked
 generate_contracts ../olas-lst/out/Collector.sol/Collector.json lst_collector
 generate_contracts ../olas-lst/out/ActivityModule.sol/ActivityModule.json lst_activity_module
 generate_contracts ../olas-lst/out/Distributor.sol/Distributor.json lst_distributor
