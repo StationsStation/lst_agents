@@ -27,10 +27,12 @@ from packages.lstolas.contracts.lst_collector.contract import LstCollector
 from packages.eightballer.contracts.amb_gnosis.contract import AmbGnosis as AmbLayer2
 from packages.eightballer.contracts.amb_mainnet.contract import AmbMainnet
 from packages.lstolas.contracts.lst_distributor.contract import LstDistributor
+from packages.lstolas.contracts.lst_staking_token_locked import PUBLIC_ID as LST_STAKING_TOKEN_LOCKED_PUBLIC_ID
 from packages.lstolas.contracts.lst_activity_module.contract import LstActivityModule
 from packages.lstolas.contracts.lst_staking_manager.contract import LstStakingManager
 from packages.lstolas.contracts.lst_unstake_relayer.contract import LstUnstakeRelayer
 from packages.eightballer.contracts.amb_gnosis_helper.contract import AmbGnosisHelper
+from packages.lstolas.contracts.lst_staking_token_locked.contract import LstStakingTokenLocked
 
 
 ROOT = Path(__file__).parent.parent.parent.parent
@@ -150,6 +152,16 @@ class LstStrategy(Model):
             LstActivityModule,
             load_contract(
                 ROOT / LST_ACTIVITY_MODULE_PUBLIC_ID.author / "contracts" / LST_ACTIVITY_MODULE_PUBLIC_ID.name
+            ),
+        )
+
+    @cached_property
+    def lst_staking_token_locked(self) -> LstStakingTokenLocked:
+        """Get the LST Staking Token Locked contract."""
+        return cast(
+            LstStakingTokenLocked,
+            load_contract(
+                ROOT / LST_STAKING_TOKEN_LOCKED_PUBLIC_ID.author / "contracts" / LST_STAKING_TOKEN_LOCKED_PUBLIC_ID.name
             ),
         )
 

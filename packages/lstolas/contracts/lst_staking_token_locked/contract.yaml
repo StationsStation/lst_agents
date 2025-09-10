@@ -1,0 +1,17 @@
+name: lst_staking_token_locked
+author: lstolas
+version: 0.1.0
+type: contract
+description: The scaffold contract scaffolds a contract to be implemented by the developer.
+license: Apache-2.0
+aea_version: '>=1.0.0, <2.0.0'
+fingerprint:
+  __init__.py: bafybeidcnq5w2q5vc32ghuu5seqv5wd52wvlp7kkck6sithhh7mkrixbnu
+  build/lst_staking_token_locked.json: bafybeiafelcef3fxqb4im7bdyhii2lcjluddvynyp4sjr3k6dbgdbromk4
+  contract.py: bafybeihxycuwxmflv64gx5lknx6fygxm2icsgwadf6j7risphu4dejh3vm
+fingerprint_ignore_patterns: []
+class_name: LstStakingTokenLocked
+contract_interface_paths:
+  ethereum: build/lst_staking_token_locked.json
+dependencies: {}
+contracts: []
