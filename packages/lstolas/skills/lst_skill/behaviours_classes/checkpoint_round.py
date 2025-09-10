@@ -21,6 +21,14 @@ class CheckpointRound(BaseState):
     def act(self) -> None:
         """Perform the act."""
         self.log.info("Creating checkpoint...")
+        if self.current_staking_proxy is None:
+            self.log.error("No staking proxy set for checkpointing.")
+        else:
+            self.tx_settler.build_and_settle_transaction(
+                contract_address=self.current_staking_proxy,
+                function=self.strategy.lst_staking_token_locked.claim,
+                ledger_api=self.strategy.layer_1_api,
+            )
         self._is_done = True
         self._event = LstabciappEvents.DONE
 
@@ -46,7 +54,7 @@ class CheckpointRound(BaseState):
                     staking_proxy,
                 ).get("int"),
             )
-            livliness_period = cast(
+            liveness_period = cast(
                 int,
                 self.strategy.lst_staking_token_locked.liveness_period(
                     self.strategy.layer_2_api,
@@ -54,7 +62,7 @@ class CheckpointRound(BaseState):
                 ).get("int"),
             )
 
-            if current_block_ts - last_checkpoint > livliness_period:
+            if current_block_ts - last_checkpoint > liveness_period:
                 self.log.info(f"Checkpoint needed for staking proxy {staking_proxy}.")
                 self.current_staking_proxy = staking_proxy
                 return True
