@@ -39,7 +39,7 @@ contracts:
 - lstolas/lst_distributor:0.1.0:bafybeidjdpm5igddhydmjrpjsatcoshwajpfraxszegk4ujdg6sp2txcxm
 - lstolas/lst_staking_manager:0.1.0:bafybeif7utuuw562bxj7miugvouno4pwq4naivnk52m4ueiili44772dbi
 - lstolas/lst_activity_module:0.1.0:bafybeidvkc3nxfgywjhzp7oqyyighy2smstirs2eubg6tk6lhe334izcri
-- lstolas/lst_staking_token_locked:0.1.0:bafybeia43cglnmjfboipkdhsftbvbwja2uj6sy5gcydtfdhjdjk2dltpfm
+- lstolas/lst_staking_token_locked:0.1.0:bafybeiftbu2o4nx2jj6kbkr2u5zc5z46suivqiq4dzb23i6osbc3xcflya
 - eightballer/erc_20:0.1.0:bafybeig622mhgil3uq34d4l3r6moxisgvxwxtrosds2x7glx3kg5z4yqzq
 - eightballer/amb_mainnet:0.1.0:bafybeiecfrsrysggmmosj5bhboqkcyrixxtjkdj4fjcjmyu3puwtzu2zmy
 - eightballer/amb_gnosis:0.1.0:bafybeie5gqdocwsq27jt25aaqprz7mvauxrv3eczpbnbewffdjj6eotlmq
