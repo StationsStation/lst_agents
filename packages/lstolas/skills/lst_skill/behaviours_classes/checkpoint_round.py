@@ -26,6 +26,7 @@ class CheckpointRound(BaseState):
 
     def is_triggered(self) -> bool:
         """Check whether the behaviour is triggered."""
+        self.current_staking_proxy = None
         current_block_ts = int(self.strategy.layer_2_api.api.eth.get_block("latest").timestamp)  # type: ignore
         raw_events = self.strategy.lst_staking_manager_contract.get_staked_events(
             self.strategy.layer_2_api,

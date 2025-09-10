@@ -11,8 +11,8 @@
         "contract/eightballer/amb_gnosis_helper/0.1.0": "bafybeig37p3q4se2it75kt4zvqvrvzk4fqc7eyspspt3txooxxljkurkey",
         "contract/eightballer/erc_20/0.1.0": "bafybeig622mhgil3uq34d4l3r6moxisgvxwxtrosds2x7glx3kg5z4yqzq",
         "contract/lstolas/lst_staking_token_locked/0.1.0": "bafybeia43cglnmjfboipkdhsftbvbwja2uj6sy5gcydtfdhjdjk2dltpfm",
-        "skill/lstolas/lst_skill/0.1.0": "bafybeifsyxqj3uui7hpuxfl67ll2xqojfvthgotcl52567ds4n5wjszpgy",
-        "agent/lstolas/lst_agent/0.1.0": "bafybeicmnrhk3iey4h6fugwyddyey2cjucwn72sa65klsexzvyxlc3vaw4"
+        "skill/lstolas/lst_skill/0.1.0": "bafybeibzqrugq4zhiycgjnju4wgailwzt6hhwjftfbrkq6ybyp4xwqudiy",
+        "agent/lstolas/lst_agent/0.1.0": "bafybeigtgquhiwea7lczddcuwot3f7d6m3hcmwdv3ugzq2je7xebmxt3ai"
     },
     "third_party": {
         "protocol/open_aea/signing/1.0.0": "bafybeig2d36zxy65vd7fwhs7scotuktydcarm74aprmrb5nioiymr3yixm",
