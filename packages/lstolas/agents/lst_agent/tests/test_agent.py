@@ -1,5 +1,7 @@
 """Integration tests for the valory/counter skill."""
 
+import os
+import signal
 import subprocess
 from pathlib import Path
 
@@ -49,4 +51,5 @@ class TestAgentLaunch(test_cases.AEATestCaseMany):
         """Terminate agent subprocesses.
         Run from agent's directory.
         """
+        any(map(lambda p: p.kill(), cls.subprocesses))
         super().terminate_agents(*subprocesses, timeout=timeout)

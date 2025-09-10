@@ -6,7 +6,7 @@ description: ''
 aea_version: '>=1.55.0, <2.0.0'
 fingerprint:
   tests/__init__.py: bafybeibk76alseqt3ufreyev7rnz5zuk6dcftt7c2ob54gmhpt6xrhkg2y
-  tests/test_agent.py: bafybeifgin42f7wjewg64m6btxpvdr2foyhytmchnkt4ecjvvfalc6wvoe
+  tests/test_agent.py: bafybeid2er5ub37dfqkqoniqbabxnh3xpy6wxfuhjxysltd4alfpvqkkpu
 fingerprint_ignore_patterns: []
 connections:
 - eightballer/http_client:0.1.0:bafybeiaz5auftwxpt4czrmeeesggqlkc2kosmetq6adrebeu6g7bkhqc2u
