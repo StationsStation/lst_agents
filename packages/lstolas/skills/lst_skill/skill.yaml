@@ -25,7 +25,7 @@ fingerprint:
   dialogues.py: bafybeiggsfafkurldxnvjhqw3l424acxmpgr4x6qs36ociozuobikpqejy
   events_processing.py: bafybeidu35pl2jclc3pbzd77m7cscdxh7vv2viqovcijjjpe5iku6qksk4
   handlers.py: bafybeigxyhzux4czjkaqntqmnjcfidchf2h6sitvxx6dknpwmoucbojqgq
-  models.py: bafybeiddsbeqd3dzdkkl4bkzbawatgsterljjwl3jmw7qgyfcdu2n2ztf4
+  models.py: bafybeicgncy44vjzvfxqwss7hfhsqqt6ndpsgimkquej6fzuw2kjs6x2au
   tests/__init__.py: bafybeigb2ji4vkcap3hokcedggjwsrah7te2nxjhkorwf3ibwgyaa2glma
   tests/test_check_work_behaviour.py: bafybeib45mbpf7ctr5aoyltwh34pljwpsh5zqentdqxerfkqx4tqhsg5h4
   tests/test_conditional_behaviours.py: bafybeihwvaz6m35f5pn4aumn4sme7gul57en7r56cbt5ovgtfm2ljjmmxu
@@ -41,6 +41,7 @@ contracts:
 - lstolas/lst_staking_manager:0.1.0:bafybeif7utuuw562bxj7miugvouno4pwq4naivnk52m4ueiili44772dbi
 - lstolas/lst_activity_module:0.1.0:bafybeidvkc3nxfgywjhzp7oqyyighy2smstirs2eubg6tk6lhe334izcri
 - lstolas/lst_staking_token_locked:0.1.0:bafybeiftbu2o4nx2jj6kbkr2u5zc5z46suivqiq4dzb23i6osbc3xcflya
+- lstolas/lst_staking_processor_l2:0.1.0:bafybeicekkydfkbq3fcxihqzllchv636habhuunlvn7bukt33l3y36mtna
 - eightballer/erc_20:0.1.0:bafybeig622mhgil3uq34d4l3r6moxisgvxwxtrosds2x7glx3kg5z4yqzq
 - eightballer/amb_mainnet:0.1.0:bafybeiecfrsrysggmmosj5bhboqkcyrixxtjkdj4fjcjmyu3puwtzu2zmy
 - eightballer/amb_gnosis:0.1.0:bafybeie5gqdocwsq27jt25aaqprz7mvauxrv3eczpbnbewffdjj6eotlmq
