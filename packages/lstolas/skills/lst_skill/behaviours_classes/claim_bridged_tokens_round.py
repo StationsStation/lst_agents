@@ -40,19 +40,18 @@ class ClaimBridgedTokensRound(BaseState):
             self.log.info("Finalizing claim...")
             self.log.info(f"Data: {claim.data}")
             self.log.info(f"Signatures: {claim.signatures}")
-            is_done = self.tx_settler.build_and_settle_transaction(
+            if not self.tx_settler.build_and_settle_transaction(
                 contract_address=self.strategy.layer_1_amb_home,
                 function=self.strategy.amb_mainnet_contract.execute_signatures,
                 ledger_api=self.strategy.layer_1_api,
                 data=claim.data,
                 signatures=claim.signatures,
-            )
-
-            if not is_done:
+            ):
                 self.log.error("Transaction failed to be sent...")
                 self._event = LstabciappEvents.FATAL_ERROR
-                break
-            self._event = LstabciappEvents.DONE
+                self._is_done = True
+                return
+        self._event = LstabciappEvents.DONE
         self._is_done = True
 
     def is_triggered(self) -> bool:

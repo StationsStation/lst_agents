@@ -24,12 +24,16 @@ class ClaimRewardTokensRound(BaseState):
         self.log.info("Claiming reward tokens...")
         while self.claimable_activity_modules:
             contract_address = self.claimable_activity_modules.pop()
-            self.tx_settler.build_and_settle_transaction(
+            if not self.tx_settler.build_and_settle_transaction(
                 contract_address=contract_address,
                 function=self.strategy.lst_activity_module_contract.claim,
                 ledger_api=self.strategy.layer_2_api,
-            )
-            self._event = LstabciappEvents.DONE
+            ):
+                self.log.error("Transaction failed to be sent...")
+                self._event = LstabciappEvents.FATAL_ERROR
+                self._is_done = True
+                return
+        self._event = LstabciappEvents.DONE
         self._is_done = True
 
     def is_triggered(self) -> bool:
