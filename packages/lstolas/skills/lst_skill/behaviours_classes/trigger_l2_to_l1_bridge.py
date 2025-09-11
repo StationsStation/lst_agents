@@ -75,7 +75,7 @@ class TriggerL2ToL1BridgeRound(BaseState):
                 self.current_operation = operation
                 self.current_balance = operation_balance
                 return True
-            self.log.info(f"Operation {operation} has insufficient balance {operation_balance}.")
+            self.log.debug(f"Operation {operation} has insufficient balance {operation_balance}.")
         return False
 
     def get_min_olas_balance(self) -> int:

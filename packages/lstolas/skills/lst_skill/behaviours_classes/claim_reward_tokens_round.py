@@ -52,7 +52,7 @@ class ClaimRewardTokensRound(BaseState):
             unique_staking_proxies.add(event.args.stakingProxy)
             service_id_to_activity_module[event.args.serviceId] = event.args.activityModule
         for service_id, activity_module in service_id_to_activity_module.items():
-            self.log.info(
+            self.log.debug(
                 f"Checking claimable rewards for service ID {service_id} and activity module {activity_module}..."
             )
             function: Any = self.strategy.lst_activity_module_contract.claim(
@@ -64,6 +64,6 @@ class ClaimRewardTokensRound(BaseState):
                 self.log.info(f"Able to call claim rewards for service ID {service_id}.")
                 self.claimable_activity_modules.append(activity_module)
             except (ContractLogicError, ContractCustomError):
-                self.log.info(f"No claimable rewards for service ID {service_id}.")
+                self.log.debug(f"No claimable rewards for service ID {service_id}.")
 
         return len(self.claimable_activity_modules) > 0
