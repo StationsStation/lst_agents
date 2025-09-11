@@ -43,7 +43,7 @@ class FinalizeBridgedTokensRound(BaseState):
 
     def is_triggered(self) -> bool:
         """Check if the condition is met to trigger this behaviour."""
-        self.log.info("Checking if there are bridged tokens to finalize...")
+        self.log.debug("Checking if there are bridged tokens to finalize...")
         self.balance_of_unstake_relayer = self.get_token_balance(self.strategy.lst_unstake_relayer_address)
         self.balance_of_distributor = self.get_token_balance(self.strategy.lst_distributor_address)
         return any([self.balance_of_unstake_relayer, self.balance_of_distributor])

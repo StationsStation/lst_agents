@@ -5,6 +5,8 @@ license: Apache-2.0
 description: ''
 aea_version: '>=1.55.0, <2.0.0'
 fingerprint:
+  logger_setup.py: bafybeicboqnvizlhdsnmlncvayrswskbyw6vshi34bnrs75qshbz3wdlqu
+  no-queue-logging.yaml: bafybeib6k2usocdkxtz6nqa2igxbwkp7f72inrsxtufyy3pttpbojxysay
   tests/__init__.py: bafybeibk76alseqt3ufreyev7rnz5zuk6dcftt7c2ob54gmhpt6xrhkg2y
   tests/test_agent.py: bafybeihdawt3eoipfhkdwx2d4hf2lwzznwsysc7t66zcuqn45ifdi5sf54
 fingerprint_ignore_patterns: []
@@ -20,7 +22,7 @@ protocols:
 - open_aea/signing:1.0.0:bafybeig2d36zxy65vd7fwhs7scotuktydcarm74aprmrb5nioiymr3yixm
 skills:
 - eightballer/prometheus:0.1.0:bafybeicl5i7e467aowfarke4bbyixo2dggar276njmvyuwbsby5pxshhtu
-- lstolas/lst_skill:0.1.0:bafybeigjb6m3gukpjofxzfs6j2rjluqpbld3m63bb7ubm33lr4kcwbyvfi
+- lstolas/lst_skill:0.1.0:bafybeic5pblaa3b2t6qzijp6d3vp5u7vdcaaqgvohblmz4bz25pe53wf54
 customs: []
 default_ledger: ethereum
 required_ledgers:
@@ -30,23 +32,41 @@ connection_private_key_paths: {}
 private_key_paths: {}
 logging_config:
   disable_existing_loggers: true
-  formatters:
-    standard:
-      format: '%(asctime)s [%(levelname)s] %(name)s: %(message)s'
   handlers:
-    console:
-      class: rich.logging.RichHandler
-      level: INFO
-    logfile:
-      class: logging.FileHandler
-      filename: log.txt
-      formatter: standard
-      level: INFO
+    queue:
+      class: logger_setup.QueuedHandler
+      queue_size: 10000
+      handler_names:
+      - console
+      - logfile
+      handler_configs:
+        console:
+          class: logger_setup.BufferedHandler
+          formatter: standard
+          level: INFO
+        logfile:
+          class: logging.handlers.TimedRotatingFileHandler
+          filename: log.jsonl
+          formatter: json
+          level: INFO
+          when: D
+          interval: 1
+          backupCount: 7
+      formatter_configs:
+        standard:
+          class: logger_setup.ShortNameFormatter
+          format: '[%(levelname)s] %(asctime)s: %(message)s'
+          datefmt: '%Y-%m-%dT%H:%M:%S'
+        detailed:
+          format: '[%(levelname)s|%(pathname)s|L%(lineno)d] %(asctime)s: %(message)s'
+          datefmt: '%Y-%m-%dT%H:%M:%S%z'
+        json:
+          class: logger_setup.JSONFormatter
+          datefmt: '%Y-%m-%dT%H:%M:%S%z'
   loggers:
     aea:
       handlers:
-      - console
-      - logfile
+      - queue
       level: INFO
       propagate: false
   version: 1

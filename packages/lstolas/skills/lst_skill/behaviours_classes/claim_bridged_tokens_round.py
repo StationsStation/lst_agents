@@ -70,8 +70,8 @@ class ClaimBridgedTokensRound(BaseState):
                 l2_to_l1_events[individual_event.args.messageId] = individual_event
 
         # we now check if there are any events to be processed
-        self.log.info(f"Found {len(l2_to_l1_events)} L2 to L1 events.")
-        self.log.info("Checking for any events to be finalized...")
+        self.log.debug(f"Found {len(l2_to_l1_events)} L2 to L1 events.")
+        self.log.debug("Checking for any events to be finalized...")
         for message_id in l2_to_l1_events:  # noqa: PLC0206
             # check if the event has been processed on the layer 1
             # we search for events on the l1 for the same message id
@@ -88,7 +88,6 @@ class ClaimBridgedTokensRound(BaseState):
             if not l1_events.events:
                 self.log.info(f"No L1 event found for message id {message_id}. It is pending.")
                 pending_bridges[message_id] = l2_to_l1_events[message_id]
-        self.log.info(f"Found {len(pending_bridges)} pending events.")
         # we now check if the bridge can be finalized
         for message_id, event in pending_bridges.items():
             try:
@@ -107,7 +106,7 @@ class ClaimBridgedTokensRound(BaseState):
                         )
                     )
             except ContractLogicError as e:
-                self.log.exception(f"Error while fetching signatures: {e}")
+                self.log.debug(f"Error while fetching signatures: {e}")
                 continue
         return len(self.pending_claims) > 0
 
