@@ -25,7 +25,7 @@ class CheckpointRound(BaseState):
             current_staking_proxy = self.callable_staking_proxies.pop()
             self.tx_settler.build_and_settle_transaction(
                 contract_address=current_staking_proxy,
-                function=self.strategy.lst_staking_token_locked.claim,
+                function=self.strategy.lst_staking_token_locked.checkpoint,
                 ledger_api=self.strategy.layer_1_api,
             )
         self._is_done = True
