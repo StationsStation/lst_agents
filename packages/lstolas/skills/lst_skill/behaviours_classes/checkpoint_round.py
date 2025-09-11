@@ -23,11 +23,15 @@ class CheckpointRound(BaseState):
         self.log.info("Creating checkpoint...")
         while self.callable_staking_proxies:
             current_staking_proxy = self.callable_staking_proxies.pop()
-            self.tx_settler.build_and_settle_transaction(
+            if not self.tx_settler.build_and_settle_transaction(
                 contract_address=current_staking_proxy,
                 function=self.strategy.lst_staking_token_locked.checkpoint,
                 ledger_api=self.strategy.layer_1_api,
-            )
+            ):
+                self.log.error("Transaction failed to be sent...")
+                self._event = LstabciappEvents.FATAL_ERROR
+                self._is_done = True
+                return
         self._is_done = True
         self._event = LstabciappEvents.DONE
 
