@@ -27,11 +27,13 @@ from packages.lstolas.contracts.lst_collector.contract import LstCollector
 from packages.eightballer.contracts.amb_gnosis.contract import AmbGnosis as AmbLayer2
 from packages.eightballer.contracts.amb_mainnet.contract import AmbMainnet
 from packages.lstolas.contracts.lst_distributor.contract import LstDistributor
+from packages.lstolas.contracts.lst_staking_processor_l2 import PUBLIC_ID as LST_STAKING_PROCESSOR_L2_PUBLIC_ID
 from packages.lstolas.contracts.lst_staking_token_locked import PUBLIC_ID as LST_STAKING_TOKEN_LOCKED_PUBLIC_ID
 from packages.lstolas.contracts.lst_activity_module.contract import LstActivityModule
 from packages.lstolas.contracts.lst_staking_manager.contract import LstStakingManager
 from packages.lstolas.contracts.lst_unstake_relayer.contract import LstUnstakeRelayer
 from packages.eightballer.contracts.amb_gnosis_helper.contract import AmbGnosisHelper
+from packages.lstolas.contracts.lst_staking_processor_l2.contract import LstStakingProcessorL2
 from packages.lstolas.contracts.lst_staking_token_locked.contract import LstStakingTokenLocked
 
 
@@ -61,6 +63,7 @@ class LstStrategy(Model):
     lst_collector_address: Address
     lst_unstake_relayer_address: Address
     lst_distributor_address: Address
+    lst_staking_processor_l2_address: Address
 
     # bridge contract addresses
     layer_2_amb_home: Address
@@ -78,6 +81,7 @@ class LstStrategy(Model):
         self.lst_unstake_relayer_address = kwargs.pop("lst_unstake_relayer_address")
         self.lst_distributor_address = kwargs.pop("lst_distributor_address")
         self.lst_staking_manager_address = kwargs.pop("lst_staking_manager_address")
+        self.lst_staking_processor_l2_address = kwargs.pop("lst_staking_processor_l2_address")
 
         self.layer_2_amb_home = kwargs.pop("layer_2_amb_home")
         self.layer_1_amb_home = kwargs.pop("layer_1_amb_home")
@@ -162,6 +166,16 @@ class LstStrategy(Model):
             LstStakingTokenLocked,
             load_contract(
                 ROOT / LST_STAKING_TOKEN_LOCKED_PUBLIC_ID.author / "contracts" / LST_STAKING_TOKEN_LOCKED_PUBLIC_ID.name
+            ),
+        )
+
+    @cached_property
+    def lst_staking_processor_l2_contract(self) -> LstStakingProcessorL2:
+        """Get the LST Staking Processor L2 contract."""
+        return cast(
+            LstStakingProcessorL2,
+            load_contract(
+                ROOT / LST_STAKING_PROCESSOR_L2_PUBLIC_ID.author / "contracts" / LST_STAKING_PROCESSOR_L2_PUBLIC_ID.name
             ),
         )
 

@@ -9,25 +9,26 @@ aea_version: '>=1.0.0, <2.0.0'
 fingerprint:
   README.md: bafybeiesl5jlvvu4enydib32bpyfqphlkdulxy3oqid3t32cjxya5qykci
   __init__.py: bafybeicrtoayqrmio45gyc3y47ncomo7k6ias22ajljlx7a6jrcuzttbaq
-  behaviours.py: bafybeid7sgel6aozd2y3i3xvjzplw4mgxcv6vhxnfjmk2ofmupfduq5t4u
+  behaviours.py: bafybeicmfwkutxakndtxgbxh2bv7iv4xteqik3i5tp7mi7yasyqqf6tpai
   behaviours_classes/__init__.py: bafybeigfxtbzqrsrmdkw4xiqtryjszmonoa7fe3dkw4c3dmqwj7m7ynt3y
   behaviours_classes/base_behaviour.py: bafybeiav3h4gklc4ellrvubdgkvjfiqz6gtxmu53kis7ahyvjoxn7a4fj4
-  behaviours_classes/check_any_work_round.py: bafybeih5o2x2jddodru5kkp2yvgngqnaujrkqeqelxa2fvdqdzdzlgzpjm
-  behaviours_classes/checkpoint_round.py: bafybeif2yxkejb6bg4zpcey2r3k3fdusg2ihun5gf5zyqfhjgbm2nyb5pu
-  behaviours_classes/claim_bridged_tokens_round.py: bafybeib2hgyrtpxq24nxcviaucpjniu2i5vlonayy2avsed5n6bhnnug6e
-  behaviours_classes/claim_reward_tokens_round.py: bafybeiczrdjbnm424zstczkk3bt2m2amjo3i7744ng7z56it2q5thbv4y4
+  behaviours_classes/check_any_work_round.py: bafybeibiop4dwotqngxqd4vdw2x4iz4b44m6urx4flvok6tdkaytwkdwzu
+  behaviours_classes/checkpoint_round.py: bafybeia6xv7cta3w6mq7fbxc475ahsi7f7lrabekpptajnz7vnnou3oq2u
+  behaviours_classes/claim_bridged_tokens_round.py: bafybeifxjg7h52kfflvjqy5iorxwjyre4xearvjyyktv4neibz72uixnea
+  behaviours_classes/claim_reward_tokens_round.py: bafybeidkyxso5txb5wmwhqdaqdm2vqjro3vqyyxnjdqfbtdlc7gifip5zi
   behaviours_classes/error_rounds.py: bafybeia7v2c77y4k24dcwp2rmdoir3tbkw2wkuuxj5ksxpj6rxnz33hbh4
-  behaviours_classes/finalize_bridged_tokens_round.py: bafybeiar3vdc63iinewbfg3jbhifecr3t22qthdchkt33hdisp23gmdknq
+  behaviours_classes/finalize_bridged_tokens_round.py: bafybeia7pu6quawefhaynteupsd4nlbjobwwbyw5vnaokqk4o2wu2cf4qa
+  behaviours_classes/redeem_round.py: bafybeif7xyrsk5hu7awm4iydqlcxluxgjjdk2z4np5elsg5gcprcs7qeuq
   behaviours_classes/starting_round.py: bafybeift5drjrtwcbssumcpfm2eczus6z6si4gppokvymhbqkfsajmhun4
-  behaviours_classes/trigger_l2_to_l1_bridge.py: bafybeic33jaghe6bzfjw2pjnh46azpyffyzak44pz3jddcfqfhjihuxine
+  behaviours_classes/trigger_l2_to_l1_bridge.py: bafybeif6f42gs3bj3tgj5wiq3l7riscp4bucoun7ae7r2vu2l6xvozbbtq
   behaviours_classes/waiting_round.py: bafybeiekbnjih5txvpxi75itpjfv7nr65bf7kbgd2f4tdvanbjsewdp2ma
   dialogues.py: bafybeiggsfafkurldxnvjhqw3l424acxmpgr4x6qs36ociozuobikpqejy
   events_processing.py: bafybeidu35pl2jclc3pbzd77m7cscdxh7vv2viqovcijjjpe5iku6qksk4
   handlers.py: bafybeigxyhzux4czjkaqntqmnjcfidchf2h6sitvxx6dknpwmoucbojqgq
-  models.py: bafybeiddsbeqd3dzdkkl4bkzbawatgsterljjwl3jmw7qgyfcdu2n2ztf4
+  models.py: bafybeig6hkn7snmasxizjnnfoeebieplbmddrqpc7kzmjubhmrdjmrrrou
   tests/__init__.py: bafybeigb2ji4vkcap3hokcedggjwsrah7te2nxjhkorwf3ibwgyaa2glma
   tests/test_check_work_behaviour.py: bafybeib45mbpf7ctr5aoyltwh34pljwpsh5zqentdqxerfkqx4tqhsg5h4
-  tests/test_conditional_behaviours.py: bafybeigq5pnhynhr3foveip6iq5mh3coqi4aofyx2wjbt35dvn2kcy2fyy
+  tests/test_conditional_behaviours.py: bafybeihwvaz6m35f5pn4aumn4sme7gul57en7r56cbt5ovgtfm2ljjmmxu
   tests/test_fsm_behaviour.py: bafybeiellmhyw3fupa725t6yirtg3ct25vuttswvyfzwvr5k3l5x3zseby
   tests/test_strategy.py: bafybeihj5doky2avukcisyfgv6e5fzji7tedq7lipl5r5jqyff6efcc5um
   transactions.py: bafybeiabdausv77uottcj7csh4u4blnz5nznxtanmbphdaq56gnupgcswu
@@ -40,6 +41,7 @@ contracts:
 - lstolas/lst_staking_manager:0.1.0:bafybeif7utuuw562bxj7miugvouno4pwq4naivnk52m4ueiili44772dbi
 - lstolas/lst_activity_module:0.1.0:bafybeidvkc3nxfgywjhzp7oqyyighy2smstirs2eubg6tk6lhe334izcri
 - lstolas/lst_staking_token_locked:0.1.0:bafybeiftbu2o4nx2jj6kbkr2u5zc5z46suivqiq4dzb23i6osbc3xcflya
+- lstolas/lst_staking_processor_l2:0.1.0:bafybeicekkydfkbq3fcxihqzllchv636habhuunlvn7bukt33l3y36mtna
 - eightballer/erc_20:0.1.0:bafybeig622mhgil3uq34d4l3r6moxisgvxwxtrosds2x7glx3kg5z4yqzq
 - eightballer/amb_mainnet:0.1.0:bafybeiecfrsrysggmmosj5bhboqkcyrixxtjkdj4fjcjmyu3puwtzu2zmy
 - eightballer/amb_gnosis:0.1.0:bafybeie5gqdocwsq27jt25aaqprz7mvauxrv3eczpbnbewffdjj6eotlmq
@@ -76,6 +78,7 @@ models:
       lst_unstake_relayer_address: '0xe4E16791359F19e63189052EA3a9Ed2f90DAf173'
       lst_distributor_address: '0xf4Da80254611Ac62413b86A65d36D08DA7630cf5'
       lst_staking_manager_address: '0x2d7C703aeD2D2d063c51ae23d0DAD202378D03e6'
+      lst_staking_processor_l2_address: '0xfB8a90AE8D925DC3AAE77d4b5B835689eca84c5d'
     class_name: LstStrategy
   tx_settler:
     args: {}

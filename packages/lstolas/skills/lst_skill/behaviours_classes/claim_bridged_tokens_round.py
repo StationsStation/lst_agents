@@ -1,6 +1,5 @@
 """FinalizeBridgedTokensRound class module."""
 
-import time
 from typing import cast
 
 from pydantic import BaseModel
@@ -40,19 +39,18 @@ class ClaimBridgedTokensRound(BaseState):
             self.log.info("Finalizing claim...")
             self.log.info(f"Data: {claim.data}")
             self.log.info(f"Signatures: {claim.signatures}")
-            is_done = self.tx_settler.build_and_settle_transaction(
+            if not self.tx_settler.build_and_settle_transaction(
                 contract_address=self.strategy.layer_1_amb_home,
                 function=self.strategy.amb_mainnet_contract.execute_signatures,
                 ledger_api=self.strategy.layer_1_api,
                 data=claim.data,
                 signatures=claim.signatures,
-            )
-
-            if not is_done:
+            ):
                 self.log.error("Transaction failed to be sent...")
                 self._event = LstabciappEvents.FATAL_ERROR
-                break
-            self._event = LstabciappEvents.DONE
+                self._is_done = True
+                return
+        self._event = LstabciappEvents.DONE
         self._is_done = True
 
     def is_triggered(self) -> bool:
@@ -87,7 +85,6 @@ class ClaimBridgedTokensRound(BaseState):
             )
 
             # sleep to avoid silly rate limits
-            time.sleep(2)
             if not l1_events.events:
                 self.log.info(f"No L1 event found for message id {message_id}. It is pending.")
                 pending_bridges[message_id] = l2_to_l1_events[message_id]

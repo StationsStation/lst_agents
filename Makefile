@@ -54,7 +54,8 @@ lint:
 fmt: 
 	poetry run adev -n 0 fmt
 
-test: clean hashes
+test: clean
+	poetry run autonomy packages lock
 	poetry run adev -v test
 
 install:

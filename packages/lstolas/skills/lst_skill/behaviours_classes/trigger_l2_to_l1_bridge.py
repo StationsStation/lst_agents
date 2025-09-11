@@ -47,14 +47,13 @@ class TriggerL2ToL1BridgeRound(BaseState):
             return
         self.log.info("Triggering L2 to L1 bridge...")
 
-        is_done = self.tx_settler.build_and_settle_transaction(
+        if not self.tx_settler.build_and_settle_transaction(
             contract_address=self.strategy.lst_collector_address,
             function=self.strategy.lst_collector_contract.relay_tokens,
             ledger_api=self.strategy.layer_2_api,
             operation=self.current_operation.value,  # type: ignore
             bridge_payload="0x",
-        )
-        if not is_done:
+        ):
             self._event = LstabciappEvents.FATAL_ERROR
         else:
             self._event = LstabciappEvents.DONE
