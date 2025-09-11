@@ -17,17 +17,23 @@ class ClaimRewardTokensRound(BaseState):
     """This class implements the behaviour of the state ClaimRewardTokensRound."""
 
     _state = LstabciappStates.CLAIMREWARDTOKENSROUND
-    current_activity_module: Address | None = None
+    claimable_activity_modules: list[Address] = []
 
     def act(self) -> None:
         """Perform the act."""
         self.log.info("Claiming reward tokens...")
+        while self.claimable_activity_modules:
+            contract_address = self.claimable_activity_modules.pop()
+            self.tx_settler.build_and_settle_transaction(
+                contract_address=contract_address,
+                function=self.strategy.lst_activity_module_contract.claim,
+                ledger_api=self.strategy.layer_2_api,
+            )
+            self._event = LstabciappEvents.DONE
         self._is_done = True
-        self._event = LstabciappEvents.DONE
 
     def is_triggered(self) -> bool:
         """Check whether the behaviour is triggered."""
-        self.current_activity_module = None
         raw_events = self.strategy.lst_staking_manager_contract.get_staked_events(
             self.strategy.layer_2_api,
             self.strategy.lst_staking_manager_address,
@@ -51,9 +57,9 @@ class ClaimRewardTokensRound(BaseState):
             )
             try:
                 function.call()
-                self.log.info(f"Successfully called claim rewards for service ID {service_id}.")
-                self.current_activity_module = activity_module
-                return True
+                self.log.info(f"Able to call claim rewards for service ID {service_id}.")
+                self.claimable_activity_modules.append(activity_module)
             except (ContractLogicError, ContractCustomError):
                 self.log.info(f"No claimable rewards for service ID {service_id}.")
-        return False
+
+        return len(self.claimable_activity_modules) > 0
