@@ -16,7 +16,7 @@ class CheckpointRound(BaseState):
     """This class implements the behaviour of the state CheckpointRound."""
 
     _state = LstabciappStates.CHECKPOINTROUND
-    callable_staking_proxies: list[Address]
+    callable_staking_proxies: list[Address] = []
 
     def act(self) -> None:
         """Perform the act."""

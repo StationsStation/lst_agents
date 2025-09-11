@@ -1,6 +1,5 @@
 """FinalizeBridgedTokensRound class module."""
 
-import time
 from typing import cast
 
 from pydantic import BaseModel
@@ -86,7 +85,6 @@ class ClaimBridgedTokensRound(BaseState):
             )
 
             # sleep to avoid silly rate limits
-            time.sleep(2)
             if not l1_events.events:
                 self.log.info(f"No L1 event found for message id {message_id}. It is pending.")
                 pending_bridges[message_id] = l2_to_l1_events[message_id]

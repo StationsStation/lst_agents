@@ -25,9 +25,9 @@ from typing import Any
 from aea.skills.behaviours import FSMBehaviour
 
 from packages.lstolas.skills.lst_skill.behaviours_classes.error_rounds import HandledErrorRound, UnHandledErrorRound
+from packages.lstolas.skills.lst_skill.behaviours_classes.redeem_round import RedeemRound
 from packages.lstolas.skills.lst_skill.behaviours_classes.waiting_round import WaitingRound
 from packages.lstolas.skills.lst_skill.behaviours_classes.base_behaviour import (
-    BaseState,
     LstabciappEvents,
     LstabciappStates,
 )
@@ -45,18 +45,6 @@ from packages.lstolas.skills.lst_skill.behaviours_classes.finalize_bridged_token
 
 
 # Define states
-
-
-class RedeemRound(BaseState):
-    """This class implements the behaviour of the state RedeemRound."""
-
-    _state = LstabciappStates.REDEEMROUND
-
-    def act(self) -> None:
-        """Perform the act."""
-        self.log.info("Redeeming tokens...")
-        self._is_done = True
-        self._event = LstabciappEvents.DONE
 
 
 class LstabciappFsmBehaviour(FSMBehaviour):

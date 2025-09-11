@@ -9,6 +9,7 @@ from packages.lstolas.skills.lst_skill import PUBLIC_ID
 from packages.lstolas.skills.lst_skill.behaviours import (
     FinalizeBridgedTokensRound,
 )
+from packages.lstolas.skills.lst_skill.behaviours_classes.redeem_round import RedeemRound
 from packages.lstolas.skills.lst_skill.behaviours_classes.base_behaviour import BaseState, LstabciappStates
 from packages.lstolas.skills.lst_skill.behaviours_classes.checkpoint_round import CheckpointRound
 from packages.lstolas.skills.lst_skill.behaviours_classes.trigger_l2_to_l1_bridge import TriggerL2ToL1BridgeRound
@@ -114,4 +115,16 @@ class TestCheckpointRound(BaseTestConditionalBehaviour):
         cls.behaviour = cast(
             CheckpointRound, cls._skill.skill_context.behaviours.main.get_state(behaviour_to_test.value)
         )
+        cls.logger = cls._skill.skill_context.logger
+
+
+class TestRedeemRound(BaseTestConditionalBehaviour):
+    """Test HttpHandler of http_echo."""
+
+    @classmethod
+    def setup_method(cls):  # pylint: disable=W0221
+        """Setup the test class."""
+        super().setup_class()
+        behaviour_to_test = LstabciappStates.REDEEMROUND
+        cls.behaviour = cast(RedeemRound, cls._skill.skill_context.behaviours.main.get_state(behaviour_to_test.value))
         cls.logger = cls._skill.skill_context.logger
