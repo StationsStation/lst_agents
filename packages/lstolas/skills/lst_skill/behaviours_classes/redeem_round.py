@@ -17,7 +17,7 @@ class RedeemRound(BaseState):
         """Perform the act."""
         self.log.info("Redeeming tokens...")
         self._is_done = True
-        self._event = LstabciappEvents.DONE
+        self._event = LstabciappEvents.FATAL_ERROR
 
     def is_triggered(self) -> bool:
         """Check if the condition is met to trigger this behaviour."""
