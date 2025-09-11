@@ -18,14 +18,14 @@ fingerprint:
   behaviours_classes/claim_reward_tokens_round.py: bafybeidkyxso5txb5wmwhqdaqdm2vqjro3vqyyxnjdqfbtdlc7gifip5zi
   behaviours_classes/error_rounds.py: bafybeia7v2c77y4k24dcwp2rmdoir3tbkw2wkuuxj5ksxpj6rxnz33hbh4
   behaviours_classes/finalize_bridged_tokens_round.py: bafybeia7pu6quawefhaynteupsd4nlbjobwwbyw5vnaokqk4o2wu2cf4qa
-  behaviours_classes/redeem_round.py: bafybeickktgt4lfvkieuzsxqsi4qqhqtc5xuk7t5xy4bzriqxuypojib4m
+  behaviours_classes/redeem_round.py: bafybeiepceenow5nccivhp4dch2qkcf4p2la4vt3amk36rfpwmrf6rwkza
   behaviours_classes/starting_round.py: bafybeift5drjrtwcbssumcpfm2eczus6z6si4gppokvymhbqkfsajmhun4
   behaviours_classes/trigger_l2_to_l1_bridge.py: bafybeif6f42gs3bj3tgj5wiq3l7riscp4bucoun7ae7r2vu2l6xvozbbtq
   behaviours_classes/waiting_round.py: bafybeiekbnjih5txvpxi75itpjfv7nr65bf7kbgd2f4tdvanbjsewdp2ma
   dialogues.py: bafybeiggsfafkurldxnvjhqw3l424acxmpgr4x6qs36ociozuobikpqejy
   events_processing.py: bafybeidu35pl2jclc3pbzd77m7cscdxh7vv2viqovcijjjpe5iku6qksk4
   handlers.py: bafybeigxyhzux4czjkaqntqmnjcfidchf2h6sitvxx6dknpwmoucbojqgq
-  models.py: bafybeicgncy44vjzvfxqwss7hfhsqqt6ndpsgimkquej6fzuw2kjs6x2au
+  models.py: bafybeig6hkn7snmasxizjnnfoeebieplbmddrqpc7kzmjubhmrdjmrrrou
   tests/__init__.py: bafybeigb2ji4vkcap3hokcedggjwsrah7te2nxjhkorwf3ibwgyaa2glma
   tests/test_check_work_behaviour.py: bafybeib45mbpf7ctr5aoyltwh34pljwpsh5zqentdqxerfkqx4tqhsg5h4
   tests/test_conditional_behaviours.py: bafybeihwvaz6m35f5pn4aumn4sme7gul57en7r56cbt5ovgtfm2ljjmmxu
@@ -78,6 +78,7 @@ models:
       lst_unstake_relayer_address: '0xe4E16791359F19e63189052EA3a9Ed2f90DAf173'
       lst_distributor_address: '0xf4Da80254611Ac62413b86A65d36D08DA7630cf5'
       lst_staking_manager_address: '0x2d7C703aeD2D2d063c51ae23d0DAD202378D03e6'
+      lst_staking_processor_l2_address: '0xfB8a90AE8D925DC3AAE77d4b5B835689eca84c5d'
     class_name: LstStrategy
   tx_settler:
     args: {}

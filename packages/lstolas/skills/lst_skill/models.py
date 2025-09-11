@@ -63,7 +63,7 @@ class LstStrategy(Model):
     lst_collector_address: Address
     lst_unstake_relayer_address: Address
     lst_distributor_address: Address
-    lst_staking_processor_l2: Address
+    lst_staking_processor_l2_address: Address
 
     # bridge contract addresses
     layer_2_amb_home: Address
@@ -81,7 +81,7 @@ class LstStrategy(Model):
         self.lst_unstake_relayer_address = kwargs.pop("lst_unstake_relayer_address")
         self.lst_distributor_address = kwargs.pop("lst_distributor_address")
         self.lst_staking_manager_address = kwargs.pop("lst_staking_manager_address")
-        self.lst_staking_processor_l2 = kwargs.pop("lst_staking_processor_l2")
+        self.lst_staking_processor_l2_address = kwargs.pop("lst_staking_processor_l2_address")
 
         self.layer_2_amb_home = kwargs.pop("layer_2_amb_home")
         self.layer_1_amb_home = kwargs.pop("layer_1_amb_home")
