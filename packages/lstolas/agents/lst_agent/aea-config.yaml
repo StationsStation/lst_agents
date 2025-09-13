@@ -22,7 +22,7 @@ protocols:
 - open_aea/signing:1.0.0:bafybeig2d36zxy65vd7fwhs7scotuktydcarm74aprmrb5nioiymr3yixm
 skills:
 - eightballer/prometheus:0.1.0:bafybeicl5i7e467aowfarke4bbyixo2dggar276njmvyuwbsby5pxshhtu
-- lstolas/lst_skill:0.1.0:bafybeic5pblaa3b2t6qzijp6d3vp5u7vdcaaqgvohblmz4bz25pe53wf54
+- lstolas/lst_skill:0.1.0:bafybeicr5jey2m35zs7rksdugzbdqxtfkxxgdq4ounabpjlip2umqqvfby
 customs: []
 default_ledger: ethereum
 required_ledgers:
