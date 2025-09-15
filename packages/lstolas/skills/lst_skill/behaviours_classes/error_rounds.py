@@ -14,7 +14,7 @@ class UnHandledErrorRound(BaseState):
 
     def act(self) -> None:
         """Perform the act."""
-        self.log.info("Handling unhandled error...")
+        self.log.info("Processing FATAL error ...")
         self._is_done = True
         self._event = LstabciappEvents.DONE
 

@@ -41,6 +41,25 @@ ROOT = Path(__file__).parent.parent.parent.parent
 
 GAS_PREMIUM = 1.2  # multiplier to add to the gas price
 TX_MINING_TIMEOUT = 300  # seconds
+TXN_ATTEMPTS = 3  # number of attempts to send a transaction
+
+
+def retry_decorator(attempts: int = TXN_ATTEMPTS):
+    """Decorator to retry a function call if it returns False."""
+
+    def decorator(func):
+        def wrapper(*args, **kwargs):
+            def attempt(n):
+                result = func(*args, **kwargs)
+                if result is not False:
+                    return result
+                return attempt(n - 1) if n > 1 else False
+
+            return attempt(attempts)
+
+        return wrapper
+
+    return decorator
 
 
 def load_contract(contract_path: Path) -> Contract:
@@ -213,6 +232,7 @@ class TransactionSettler(Model):
             }
         )
 
+    @retry_decorator(attempts=TXN_ATTEMPTS)
     def build_and_settle_transaction(
         self, contract_address: Address, function: Callable, ledger_api: EthereumApi, **kwargs
     ):
@@ -231,7 +251,7 @@ class TransactionSettler(Model):
         signed_tx = signed_tx_to_dict(self.strategy.crypto.entity.sign_transaction(raw_tx))
         tx_hash = try_send_signed_transaction(ledger_api, signed_tx)
         if tx_hash is None:
-            self.log.error("Transaction failed to be sent...")
+            self.log.error("Transaction failed after maximum attempts.")
             return False
         self.context.logger.info(f"Transaction hash: {tx_hash.hex()}")
         tx_receipt = ledger_api.api.eth.wait_for_transaction_receipt(tx_hash, timeout=TX_MINING_TIMEOUT)
