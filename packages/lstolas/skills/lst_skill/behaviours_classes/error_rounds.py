@@ -1,5 +1,7 @@
 """Error Rounds Behaviour Classes."""
 
+import time
+
 from packages.lstolas.skills.lst_skill.behaviours_classes.base_behaviour import (
     BaseState,
     LstabciappEvents,
@@ -27,5 +29,6 @@ class HandledErrorRound(BaseState):
     def act(self) -> None:
         """Perform the act."""
         self.log.info("Handling error...")
+        time.sleep(10)
         self._is_done = True
         self._event = LstabciappEvents.DONE

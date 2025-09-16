@@ -53,3 +53,5 @@ class EventsPayload(AttributeDict):
     """TypedDict for a payload containing a list of events."""
 
     events: list[Event] = []
+    from_block: int
+    to_block: int

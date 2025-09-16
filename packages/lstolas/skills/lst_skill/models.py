@@ -217,20 +217,26 @@ class LstStrategy(Model):
 class TransactionSettler(Model):
     """Transaction Settler for building transactions."""
 
-    def build_transaction(self, ledger: EthereumApi, func: Any, value: int = 0):
+    def build_transaction(self, ledger: EthereumApi, func: Any, value: int = 0) -> dict[str, Any] | None:
         """Build the transaction."""
 
         nonce = ledger._try_get_transaction_count(self.strategy.sender_address)  # noqa: SLF001
 
-        return func.build_transaction(
-            {
-                "from": self.strategy.sender_address,
-                "nonce": nonce,
-                "gas": func.estimate_gas({"from": self.strategy.sender_address, "value": value}),
-                "gasPrice": int(ledger.api.eth.gas_price * GAS_PREMIUM),
-                "value": value,
-            }
-        )
+        try:
+            return func.build_transaction(
+                {
+                    "from": self.strategy.sender_address,
+                    "nonce": nonce,
+                    "gas": int(
+                        func.estimate_gas({"from": self.strategy.sender_address, "value": value}) * GAS_PREMIUM * 2
+                    ),
+                    "gasPrice": int(ledger.api.eth.gas_price * GAS_PREMIUM),
+                    "value": value,
+                }
+            )
+        except Exception as e:  # pylint: disable=broad-except
+            self.log.exception(f"Error building transaction: {e}")
+            return None
 
     @retry_decorator(attempts=TXN_ATTEMPTS)
     def build_and_settle_transaction(
@@ -247,6 +253,10 @@ class TransactionSettler(Model):
             ledger_api,
             w3_function,
         )
+        if raw_tx is None:
+            self.log.error("Failed to build transaction.")
+            return False
+
         self.log.info("Signing and sending transaction...")
         signed_tx = signed_tx_to_dict(self.strategy.crypto.entity.sign_transaction(raw_tx))
         tx_hash = try_send_signed_transaction(ledger_api, signed_tx)
