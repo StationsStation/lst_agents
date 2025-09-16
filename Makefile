@@ -50,9 +50,11 @@ hashes: clean
 
 lint:
 	poetry run adev -v -n 0 lint
+	poetry run adev -v -n 0 lint -p scripts
 
 fmt: 
 	poetry run adev -n 0 fmt
+	poetry run adev -v -n 0 fmt -p scripts
 
 test: clean
 	poetry run autonomy packages lock
@@ -92,4 +94,4 @@ metadata:
 typecheck:
 	poetry run pyright packages/lstolas/skills/lst_skill/
 
-all: fmt lint typecheck test hashes
+all: fmt lint typecheck test

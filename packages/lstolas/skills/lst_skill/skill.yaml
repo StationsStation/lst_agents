@@ -16,16 +16,16 @@ fingerprint:
   behaviours_classes/checkpoint_round.py: bafybeia6xv7cta3w6mq7fbxc475ahsi7f7lrabekpptajnz7vnnou3oq2u
   behaviours_classes/claim_bridged_tokens_round.py: bafybeidvj2nqqhm2yxw433tilrgn5k4craf3d2ixbaa3ca2rxwtp5v7ska
   behaviours_classes/claim_reward_tokens_round.py: bafybeigzfqweoglatgr4fs6tdunrw2z2wekwgqxr3ls2z6xbqy2rx6xeye
-  behaviours_classes/error_rounds.py: bafybeia7v2c77y4k24dcwp2rmdoir3tbkw2wkuuxj5ksxpj6rxnz33hbh4
+  behaviours_classes/error_rounds.py: bafybeihtghxlbb5k6s4egdibglto7h43xk3fz7vclhrizncq5vkwzlsqu4
   behaviours_classes/finalize_bridged_tokens_round.py: bafybeifnxckqnez2apllpwlxj6rvrfat732xhorhqle3aut6wl2dr7ekxu
-  behaviours_classes/redeem_round.py: bafybeif7xyrsk5hu7awm4iydqlcxluxgjjdk2z4np5elsg5gcprcs7qeuq
+  behaviours_classes/redeem_round.py: bafybeicka3slsgqqkz5snojfitkkdgcxekkncfuktxao5wtqhyifgwr2dm
   behaviours_classes/starting_round.py: bafybeift5drjrtwcbssumcpfm2eczus6z6si4gppokvymhbqkfsajmhun4
   behaviours_classes/trigger_l2_to_l1_bridge.py: bafybeibhm3duq5y5cliu66cmboctk545szpf5mbmvvs3wkn6yjsaj7oagi
   behaviours_classes/waiting_round.py: bafybeiekbnjih5txvpxi75itpjfv7nr65bf7kbgd2f4tdvanbjsewdp2ma
   dialogues.py: bafybeiggsfafkurldxnvjhqw3l424acxmpgr4x6qs36ociozuobikpqejy
-  events_processing.py: bafybeidu35pl2jclc3pbzd77m7cscdxh7vv2viqovcijjjpe5iku6qksk4
+  events_processing.py: bafybeihvdc6qwmzk6pizpuwhdjb7whtevt25uicjeghxzem2qtjko2biom
   handlers.py: bafybeigxyhzux4czjkaqntqmnjcfidchf2h6sitvxx6dknpwmoucbojqgq
-  models.py: bafybeig6hkn7snmasxizjnnfoeebieplbmddrqpc7kzmjubhmrdjmrrrou
+  models.py: bafybeicztnez3gyltmogot6qlbi4dch6nrlskpllbcgko5hwanv5nnek2q
   tests/__init__.py: bafybeigb2ji4vkcap3hokcedggjwsrah7te2nxjhkorwf3ibwgyaa2glma
   tests/test_check_work_behaviour.py: bafybeib45mbpf7ctr5aoyltwh34pljwpsh5zqentdqxerfkqx4tqhsg5h4
   tests/test_conditional_behaviours.py: bafybeihwvaz6m35f5pn4aumn4sme7gul57en7r56cbt5ovgtfm2ljjmmxu
@@ -74,11 +74,11 @@ models:
       layer_2_rpc_endpoint: https://rpc.chiadochain.net
       layer_2_amb_home: '0x8448E15d0e706C0298dECA99F0b4744030e59d7d'
       layer_2_amb_helper: '0x3cc500B3c01D04C265c9293cB35BA2Fd8eA6dc1b'
-      lst_collector_address: '0x12B35395B8FE15D073948c7563fecB986c344137'
-      lst_unstake_relayer_address: '0xe4E16791359F19e63189052EA3a9Ed2f90DAf173'
-      lst_distributor_address: '0xf4Da80254611Ac62413b86A65d36D08DA7630cf5'
-      lst_staking_manager_address: '0x2d7C703aeD2D2d063c51ae23d0DAD202378D03e6'
-      lst_staking_processor_l2_address: '0xfB8a90AE8D925DC3AAE77d4b5B835689eca84c5d'
+      lst_collector_address: '0x5aD1BB8AFa97bD24Cd54d03f87649791Ea9e69AE'
+      lst_unstake_relayer_address: '0x789B8c39EFEc3bCaB1DB232eC4a86E5ae2797d27'
+      lst_distributor_address: '0x9D54Ce975f9B2aeF50a999f98C247a8a7b1cC24b'
+      lst_staking_manager_address: '0xd1fC5dab8BBbCCABe00d9d72b4D7b72677526cC2'
+      lst_staking_processor_l2_address: '0x195c34FfbEB3dF49E3e14aa8a2D23DDAf167c096'
     class_name: LstStrategy
   tx_settler:
     args: {}
