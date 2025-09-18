@@ -24,3 +24,6 @@ packages/eightballer/connections/http_server
 packages/eightballer/connections/prometheus
 packages/eightballer/skills/prometheus
 /lst_agent/
+
+packages/eightballer/protocols/user_interaction
+packages/eightballer/connections/apprise_wrapper
