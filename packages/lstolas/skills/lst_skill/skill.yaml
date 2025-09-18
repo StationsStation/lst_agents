@@ -9,23 +9,23 @@ aea_version: '>=1.0.0, <2.0.0'
 fingerprint:
   README.md: bafybeiesl5jlvvu4enydib32bpyfqphlkdulxy3oqid3t32cjxya5qykci
   __init__.py: bafybeicrtoayqrmio45gyc3y47ncomo7k6ias22ajljlx7a6jrcuzttbaq
-  behaviours.py: bafybeicmfwkutxakndtxgbxh2bv7iv4xteqik3i5tp7mi7yasyqqf6tpai
+  behaviours.py: bafybeiaq7vfkbii7xkktzf3rxervpuaj36lx5lagsyqrbz33xam3pfejsa
   behaviours_classes/__init__.py: bafybeigfxtbzqrsrmdkw4xiqtryjszmonoa7fe3dkw4c3dmqwj7m7ynt3y
-  behaviours_classes/base_behaviour.py: bafybeiav3h4gklc4ellrvubdgkvjfiqz6gtxmu53kis7ahyvjoxn7a4fj4
+  behaviours_classes/base_behaviour.py: bafybeibt7wqatpktq36n66krinjuewkskb2tu4efssgz433r4xrjzuk56m
   behaviours_classes/check_any_work_round.py: bafybeibiop4dwotqngxqd4vdw2x4iz4b44m6urx4flvok6tdkaytwkdwzu
   behaviours_classes/checkpoint_round.py: bafybeia6xv7cta3w6mq7fbxc475ahsi7f7lrabekpptajnz7vnnou3oq2u
   behaviours_classes/claim_bridged_tokens_round.py: bafybeidvj2nqqhm2yxw433tilrgn5k4craf3d2ixbaa3ca2rxwtp5v7ska
   behaviours_classes/claim_reward_tokens_round.py: bafybeigzfqweoglatgr4fs6tdunrw2z2wekwgqxr3ls2z6xbqy2rx6xeye
   behaviours_classes/error_rounds.py: bafybeihtghxlbb5k6s4egdibglto7h43xk3fz7vclhrizncq5vkwzlsqu4
   behaviours_classes/finalize_bridged_tokens_round.py: bafybeifnxckqnez2apllpwlxj6rvrfat732xhorhqle3aut6wl2dr7ekxu
-  behaviours_classes/redeem_round.py: bafybeicka3slsgqqkz5snojfitkkdgcxekkncfuktxao5wtqhyifgwr2dm
+  behaviours_classes/redeem_round.py: bafybeigpy5vtblbydbkxuaw5e2v5tvuiutxwzabwbopwrkepxuc7yczvre
   behaviours_classes/starting_round.py: bafybeift5drjrtwcbssumcpfm2eczus6z6si4gppokvymhbqkfsajmhun4
   behaviours_classes/trigger_l2_to_l1_bridge.py: bafybeibhm3duq5y5cliu66cmboctk545szpf5mbmvvs3wkn6yjsaj7oagi
   behaviours_classes/waiting_round.py: bafybeiekbnjih5txvpxi75itpjfv7nr65bf7kbgd2f4tdvanbjsewdp2ma
-  dialogues.py: bafybeiggsfafkurldxnvjhqw3l424acxmpgr4x6qs36ociozuobikpqejy
+  dialogues.py: bafybeigbpewv7jsbyaybassv47sxk7bmvbl5pg25v2inr5gc6djch75rmi
   events_processing.py: bafybeihvdc6qwmzk6pizpuwhdjb7whtevt25uicjeghxzem2qtjko2biom
   handlers.py: bafybeigxyhzux4czjkaqntqmnjcfidchf2h6sitvxx6dknpwmoucbojqgq
-  models.py: bafybeicztnez3gyltmogot6qlbi4dch6nrlskpllbcgko5hwanv5nnek2q
+  models.py: bafybeieloc2vda6ig647sh3mwht7sxb2oeik2z4i5v2ess3rl4bsohrj6a
   tests/__init__.py: bafybeigb2ji4vkcap3hokcedggjwsrah7te2nxjhkorwf3ibwgyaa2glma
   tests/test_check_work_behaviour.py: bafybeib45mbpf7ctr5aoyltwh34pljwpsh5zqentdqxerfkqx4tqhsg5h4
   tests/test_conditional_behaviours.py: bafybeihwvaz6m35f5pn4aumn4sme7gul57en7r56cbt5ovgtfm2ljjmmxu
@@ -33,7 +33,8 @@ fingerprint:
   tests/test_strategy.py: bafybeihj5doky2avukcisyfgv6e5fzji7tedq7lipl5r5jqyff6efcc5um
   transactions.py: bafybeiabdausv77uottcj7csh4u4blnz5nznxtanmbphdaq56gnupgcswu
 fingerprint_ignore_patterns: []
-connections: []
+connections:
+- eightballer/apprise_wrapper:0.1.0:bafybeibekoqsadyztskr353x3usoxe4bmjlr45ecafmyfbxay6dc4jxcci
 contracts:
 - lstolas/lst_collector:0.1.0:bafybeid4k36qpva3rbxialkoxoyikdderfidj7sl6zx6nidfakbbebvga4
 - lstolas/lst_unstake_relayer:0.1.0:bafybeicsh2zzjov3cgmuvhm6llhvqngi4vp6na5ixzfxsvq5mtygw5mc3a
@@ -48,6 +49,7 @@ contracts:
 - eightballer/amb_gnosis_helper:0.1.0:bafybeig37p3q4se2it75kt4zvqvrvzk4fqc7eyspspt3txooxxljkurkey
 protocols:
 - eightballer/default:0.1.0:bafybeicsdb3bue2xoopc6lue7njtyt22nehrnkevmkuk2i6ac65w722vwy
+- eightballer/user_interaction:0.1.0:bafybeidmfy3vdnlbz6wexi4gwhofown4a7l6jt7nzh2x7lvghumxlgh4vi
 - eightballer/http:0.1.0:bafybeid75xhq7hfdt7sgj7yrn44yj57xrgxscaw34ir46tndfzvodioxme
 skills: []
 behaviours:
@@ -66,6 +68,9 @@ models:
   http_dialogues:
     args: {}
     class_name: HttpDialogues
+  user_interaction_dialogues:
+    args: {}
+    class_name: UserInteractionDialogues
   lst_strategy:
     args:
       layer_1_rpc_endpoint: https://eth-sepolia.api.onfinality.io/public
