@@ -103,7 +103,7 @@ class RedeemRound(BaseState):
                     continue
                 self.send_notification_to_user(
                     title="Redeem request detected",
-                    body=f"Detected a redeem request with batch hash {event.batch_hash}. Attempting to process it.",
+                    msg=f"Detected a redeem request with batch hash {event.batch_hash}. Attempting to process it.",
                 )
                 self.context.logger.info(f"Checking on event: {event}")
 

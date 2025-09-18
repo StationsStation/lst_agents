@@ -94,11 +94,11 @@ class BaseState(State, ABC):
     def send_notification_to_user(self, msg: str, attach: str | None = None, title: str | None = None) -> None:
         """Send notification to user."""
         dialogues = cast(UserInteractionDialogues, self.context.user_interaction_dialogues)
-        msg, _ = dialogues.create(
+        msg, _ = dialogues.create(  # type: ignore
             counterparty=str(APPRISE_PUBLIC_ID),
             performative=UserInteractionMessage.Performative.NOTIFICATION,
             title=title,
             body=msg,
             attach=attach,
         )
-        self.context.outbox.put_message(message=msg)
+        self.context.outbox.put_message(message=msg)  # type: ignore
