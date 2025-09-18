@@ -28,6 +28,7 @@ from packages.lstolas.skills.lst_skill.behaviours_classes.error_rounds import Ha
 from packages.lstolas.skills.lst_skill.behaviours_classes.redeem_round import RedeemRound
 from packages.lstolas.skills.lst_skill.behaviours_classes.waiting_round import WaitingRound
 from packages.lstolas.skills.lst_skill.behaviours_classes.base_behaviour import (
+    BaseState,
     LstabciappEvents,
     LstabciappStates,
 )
@@ -47,7 +48,7 @@ from packages.lstolas.skills.lst_skill.behaviours_classes.finalize_bridged_token
 # Define states
 
 
-class LstabciappFsmBehaviour(FSMBehaviour):
+class LstabciappFsmBehaviour(FSMBehaviour, BaseState):
     """This class implements a simple Finite State Machine behaviour."""
 
     rounds = [

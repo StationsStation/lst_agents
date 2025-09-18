@@ -15,10 +15,11 @@ from packages.lstolas.skills.lst_skill.behaviours_classes.base_behaviour import 
 class OperationStatus(Enum):
     """Status of the operation."""
 
-    FAILED = 0
-    INSUFFICIENT_OLAS_BALANCE = 1
-    UNSUPPORTED_OPERATION_TYPE = 2
-    CONTRACT_IS_PAUSED = 3
+    NON_EXISTENT = 0
+    EXTERNAL_CALLED_FAILED = 1
+    INSUFFICIENT_OLAS_BALANCE = 2
+    UNSUPPORTED_OPERATION_TYPE = 3
+    CONTRACT_IS_PAUSED = 4
 
 
 class PendingRequest(BaseModel):
@@ -100,6 +101,10 @@ class RedeemRound(BaseState):
                         f"Request with batch hash {event.batch_hash} has status {event.status} and will be skipped."
                     )
                     continue
+                self.send_notification_to_user(
+                    title="Redeem request detected",
+                    body=f"Detected a redeem request with batch hash {event.batch_hash}. Attempting to process it.",
+                )
                 self.context.logger.info(f"Checking on event: {event}")
 
                 queued_hash = (

@@ -33,6 +33,12 @@ from packages.eightballer.protocols.default.dialogues import (
     DefaultDialogue as BaseDefaultDialogue,
     DefaultDialogues as BaseDefaultDialogues,
 )
+from packages.eightballer.protocols.user_interaction.dialogues import (
+    UserInteractionDialogues as BaseUserInteractionDialogues,
+)
+
+
+UserInteractionDialogues = BaseUserInteractionDialogues
 
 
 DefaultDialogue = BaseDefaultDialogue

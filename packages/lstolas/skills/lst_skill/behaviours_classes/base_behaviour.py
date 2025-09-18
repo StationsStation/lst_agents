@@ -3,12 +3,15 @@
 import json
 from abc import ABC
 from enum import Enum, StrEnum
-from typing import Any
+from typing import Any, cast
 
 from aea.contracts.base import Contract
 from aea.skills.behaviours import State
 
 from packages.lstolas.skills.lst_skill.models import LstStrategy, TransactionSettler
+from packages.eightballer.protocols.user_interaction.message import UserInteractionMessage
+from packages.eightballer.protocols.user_interaction.dialogues import UserInteractionDialogues
+from packages.eightballer.connections.apprise_wrapper.connection import CONNECTION_ID as APPRISE_PUBLIC_ID
 
 
 class LstabciappEvents(StrEnum):
@@ -87,3 +90,15 @@ class BaseState(State, ABC):
         with open(abi_path, encoding="utf-8") as json_file:
             abi = json.load(json_file)
         return abi.get("abi", [])
+
+    def send_notification_to_user(self, msg: str, attach: str | None = None, title: str | None = None) -> None:
+        """Send notification to user."""
+        dialogues = cast(UserInteractionDialogues, self.context.user_interaction_dialogues)
+        msg, _ = dialogues.create(
+            counterparty=str(APPRISE_PUBLIC_ID),
+            performative=UserInteractionMessage.Performative.NOTIFICATION,
+            title=title,
+            body=msg,
+            attach=attach,
+        )
+        self.context.outbox.put_message(message=msg)

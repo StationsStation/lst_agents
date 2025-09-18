@@ -33,7 +33,8 @@ fingerprint:
   tests/test_strategy.py: bafybeihj5doky2avukcisyfgv6e5fzji7tedq7lipl5r5jqyff6efcc5um
   transactions.py: bafybeiabdausv77uottcj7csh4u4blnz5nznxtanmbphdaq56gnupgcswu
 fingerprint_ignore_patterns: []
-connections: []
+connections:
+- eightballer/apprise_wrapper:0.1.0:bafybeicy4ck2wvauo2vh6ji64xrzlgezh27powi6ztokr4yujtf3cft6wi
 contracts:
 - lstolas/lst_collector:0.1.0:bafybeid4k36qpva3rbxialkoxoyikdderfidj7sl6zx6nidfakbbebvga4
 - lstolas/lst_unstake_relayer:0.1.0:bafybeicsh2zzjov3cgmuvhm6llhvqngi4vp6na5ixzfxsvq5mtygw5mc3a
@@ -48,6 +49,7 @@ contracts:
 - eightballer/amb_gnosis_helper:0.1.0:bafybeig37p3q4se2it75kt4zvqvrvzk4fqc7eyspspt3txooxxljkurkey
 protocols:
 - eightballer/default:0.1.0:bafybeicsdb3bue2xoopc6lue7njtyt22nehrnkevmkuk2i6ac65w722vwy
+- eightballer/user_interaction:0.1.0:bafybeicsdb3bue2xoopc6lue7njtyt22nehrnkevmkuk2i6ac65w722vwy
 - eightballer/http:0.1.0:bafybeid75xhq7hfdt7sgj7yrn44yj57xrgxscaw34ir46tndfzvodioxme
 skills: []
 behaviours:
@@ -66,6 +68,9 @@ models:
   http_dialogues:
     args: {}
     class_name: HttpDialogues
+  user_interaction_dialogues:
+    args: {}
+    class_name: UserInteractionDialogues
   lst_strategy:
     args:
       layer_1_rpc_endpoint: https://eth-sepolia.api.onfinality.io/public

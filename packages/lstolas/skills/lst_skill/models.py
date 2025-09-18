@@ -2,6 +2,7 @@
 
 from typing import Any, cast
 from pathlib import Path
+from textwrap import dedent
 from functools import cached_property
 from collections.abc import Callable
 
@@ -29,10 +30,13 @@ from packages.eightballer.contracts.amb_mainnet.contract import AmbMainnet
 from packages.lstolas.contracts.lst_distributor.contract import LstDistributor
 from packages.lstolas.contracts.lst_staking_processor_l2 import PUBLIC_ID as LST_STAKING_PROCESSOR_L2_PUBLIC_ID
 from packages.lstolas.contracts.lst_staking_token_locked import PUBLIC_ID as LST_STAKING_TOKEN_LOCKED_PUBLIC_ID
+from packages.eightballer.protocols.user_interaction.message import UserInteractionMessage
 from packages.lstolas.contracts.lst_activity_module.contract import LstActivityModule
 from packages.lstolas.contracts.lst_staking_manager.contract import LstStakingManager
 from packages.lstolas.contracts.lst_unstake_relayer.contract import LstUnstakeRelayer
 from packages.eightballer.contracts.amb_gnosis_helper.contract import AmbGnosisHelper
+from packages.eightballer.protocols.user_interaction.dialogues import UserInteractionDialogues
+from packages.eightballer.connections.apprise_wrapper.connection import CONNECTION_ID as APPRISE_PUBLIC_ID
 from packages.lstolas.contracts.lst_staking_processor_l2.contract import LstStakingProcessorL2
 from packages.lstolas.contracts.lst_staking_token_locked.contract import LstStakingTokenLocked
 
@@ -238,6 +242,18 @@ class TransactionSettler(Model):
             self.log.exception(f"Error building transaction: {e}")
             return None
 
+    def send_notification_to_user(self, msg: str, attach: str | None = None, title: str | None = None) -> None:
+        """Send notification to user."""
+        dialogues = cast(UserInteractionDialogues, self.context.user_interaction_dialogues)
+        msg, _ = dialogues.create(
+            counterparty=str(APPRISE_PUBLIC_ID),
+            performative=UserInteractionMessage.Performative.NOTIFICATION,
+            title=title,
+            body=msg,
+            attach=attach,
+        )
+        self.context.outbox.put_message(message=msg)
+
     @retry_decorator(attempts=TXN_ATTEMPTS)
     def build_and_settle_transaction(
         self, contract_address: Address, function: Callable, ledger_api: EthereumApi, **kwargs
@@ -269,6 +285,21 @@ class TransactionSettler(Model):
             self.log.error("Transaction failed...")
             return False
         self.log.info("Transaction successful!")
+
+        chain_id_to_explorer = {
+            11155111: "https://sepolia.etherscan.io/tx/",
+            10200: "https://gnosis-chiado.blockscout.com/tx/",
+        }
+        self.send_notification_to_user(
+            msg=dedent(
+                f"""
+            Function: {function.__name__}
+            Contract: {contract_address}
+            [Transaction]({chain_id_to_explorer.get(ledger_api.api.eth.chain_id, '')}{tx_hash.hex()})
+            """,
+            ),
+            title="New txn executed!",
+        )
         return True
 
     @property
